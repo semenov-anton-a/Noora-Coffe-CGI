@@ -10,4 +10,5 @@ public class CoffeApplication {
 		SpringApplication.run(CoffeApplication.class, args);
 	}
 
+
 }

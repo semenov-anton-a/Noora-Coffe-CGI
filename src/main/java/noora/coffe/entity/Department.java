@@ -2,41 +2,42 @@ package noora.coffe.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder.Default;
 
+import org.hibernate.annotations.NotFound;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-// @Data
-@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Department extends AbstractPersistable<Long> {
 
     /**
-     *  Сущность отдела
+     * Сущность отдела
      */
+
+    private Long id;
+    private String name;
     
-    @Id
-    @GeneratedValue( strategy = GenerationType.AUTO )
-    private int id;
-
-
-
-    String name;
-    
-
     @ManyToOne
-    @JoinColumn(name="product_id", nullable=false)
+    @JoinColumn( name = "PRODUCT" )
     private Product product;
+    // private List<Product> product;
+
+    public Department( String name, Product product )
+    {
+        this.name = name;
+        this.product = product;
+
+    }
 
 }

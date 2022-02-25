@@ -1,3 +1,46 @@
 <div th:fragment="production">
     <h1>Add production</h1>
-<div>
+
+    <form method="post" action="/admin/add-product">
+        <input type="text" name="name">
+
+        <select name="departmentID">
+            <option th:each="department: ${department}" th:value="${department.id}" th:text="${department.name}">
+        </select>
+
+        <button type="submit" name="">Add new department</button>
+    </form>
+
+
+    <div th:each="productList : ${productList}">
+        <div style="border: 1px solid black; margin:5px">
+            <span th:text="|Production: ${ productList.name }|"></span>
+            <br />
+            <span th:text="|Category: ${ productList.category }|"></span>
+
+            <h4>Set Category</h4>
+
+            <div style="margin: 2px 0 0 0">
+
+                <form method="post" action="/admin/set-category">
+
+                    <input type="hidden" th:value="${ productList.id }" name="id"/>
+
+                    <select name="departmentID">
+                        <option 
+                            th:each="department: ${department}" 
+                            th:value="${department.id}"
+                            th:text="${department.name}">
+                    </select>
+
+                    <button type="submit" name="">Set Category</button>
+                
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div>

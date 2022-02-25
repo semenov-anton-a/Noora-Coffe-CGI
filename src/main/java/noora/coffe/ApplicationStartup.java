@@ -26,17 +26,23 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     private void makeDepartments() 
     {    
+        String noCategory = "No Category";
         String kahvilaitteet = "Kahvilaitteet";
         String kulutustuoteet = "Kulutustuoteet";
         
+        if( ! departmentRepo.existsByName(noCategory) ){
+            System.out.println("INSERT " + noCategory);
+            departmentRepo.save( new Department(noCategory) );
+        }
+
         if( ! departmentRepo.existsByName(kahvilaitteet) ){
             System.out.println("INSERT " + kahvilaitteet);
-            departmentRepo.save( new Department(kahvilaitteet, null) );
+            departmentRepo.save( new Department( kahvilaitteet ) );
         }
 
         if( ! departmentRepo.existsByName(kulutustuoteet) ){
             System.out.println("INSERT " + kulutustuoteet);
-            departmentRepo.save( new Department(kulutustuoteet, null) );
+            departmentRepo.save( new Department(kulutustuoteet) );
         }
     }
 }

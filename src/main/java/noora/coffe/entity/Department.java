@@ -1,43 +1,88 @@
 package noora.coffe.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Builder.Default;
+import lombok.Setter;
+import noora.coffe.repos.DepartmentRepo;
 
-import org.hibernate.annotations.NotFound;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.transaction.annotation.Transactional;
 
 @Data
+@Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 public class Department extends AbstractPersistable<Long> {
+
+    private static final List List = null;
 
     /**
      * Сущность отдела
      */
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    
-    @ManyToOne
-    @JoinColumn( name = "PRODUCT" )
-    private Product product;
-    // private List<Product> product;
 
-    public Department( String name, Product product )
-    {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "department_id")
+    private List<Product> products;
+
+    public Department(String name) {
         this.name = name;
-        this.product = product;
-
     }
+
+    public Department addProduct( Product product ) {
+        this.products.add( product );        
+        return this;    
+    }
+
+    @Transactional
+    public Department updateProduct( Product product ) {
+        this.products.remove(product);        
+        this.products.add(product);        
+        return this;    
+    }
+    
+    public List<Product> listProducts( List<Department> departmentProducts ) {
+        
+        Integer size = departmentProducts.size();
+        List<Product> products = new ArrayList<>();
+        
+        for( int i = 0; i <= size-1; i++ ){
+            if( ! departmentProducts.get(i).getProducts().isEmpty() ){
+                List<Product> p = departmentProducts.get(i).getProducts();
+
+                String department = departmentProducts.get(i).getName();
+
+                p.forEach( product -> { 
+                    product.setTransientCategory( department ); 
+                });
+
+                products.addAll( p );
+            }
+        }
+
+        return products;
+    }
+
 
 }

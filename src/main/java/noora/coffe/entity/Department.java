@@ -2,6 +2,8 @@ package noora.coffe.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,6 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import noora.coffe.repos.DepartmentRepo;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,6 +83,10 @@ public class Department extends AbstractPersistable<Long> {
                 products.addAll( p );
             }
         }
+        
+        Collections.sort( products, 
+            (Product o1, Product o2) -> o1.getId().compareTo(o2.getId()) 
+        );
 
         return products;
     }

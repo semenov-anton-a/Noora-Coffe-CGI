@@ -92,13 +92,7 @@ public class AdminIndexController {
         Product product = productRepo.getById( id );
         Department dep = departmentRepo.getById( departmentID );
         
-        
-
         departmentRepo.save( dep.updateProduct( product ) );
-
-        // System.out.println( product );
-        // System.out.println( dep );
-
 
         return "redirect:/admin";
     }

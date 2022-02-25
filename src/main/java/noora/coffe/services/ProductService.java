@@ -61,7 +61,6 @@ public class ProductService {
         departmentRepo.save(
                 departmentRepo.getById(departmentID).addProduct(product));
     }
-
     /**
      * Update product Department ID
      * 
@@ -74,9 +73,53 @@ public class ProductService {
                 departmentRepo.getById(departmentID)
                         .updateProduct(productRepo.getById(id)));
     }
+    /**
+     * Delete Product
+     * @param id
+     */
+    public void deleteById(Long id) { productRepo.deleteById(id); }
 
-    public void deleteById(Long id) {
-        productRepo.deleteById(id);
+
+    public void addEntityDependencies( List data ){
+
+        System.out.println( data.get(1) );
+
     }
+
+
+    // public List<Product> addEntityDependencies(
+    //     List<Department> departmentList,
+    //     List<Supplier> supplierList
+    // ){
+    //     Integer size = departmentList.size();
+    //     List<Product> products = new ArrayList<>();
+
+    //     for (int i = 0; i <= size - 1; i++) {
+    //         if (!departmentList.get(i).getProducts().isEmpty()) {
+    //             List<Product> p = departmentList.get(i).getProducts();
+
+    //             String department = departmentList.get(i).getName();
+    //             String department = departmentList.get(i).getName();
+
+    //             p.forEach(product -> {
+    //                 product.setTransientCategory(department);
+    //             });
+
+    //             products.addAll(p);
+    //         }
+    //     }
+
+    //     Collections.sort(products,
+    //             (Product o1, Product o2) -> o1.getId().compareTo(o2.getId()));
+
+    //     return products;
+    // }
+
+
+
+
+    // public void 
+
+
 
 }

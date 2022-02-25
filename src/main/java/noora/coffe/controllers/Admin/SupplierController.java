@@ -19,14 +19,25 @@ import noora.coffe.services.*;
 @Controller
 public class SupplierController{
     
+    @Autowired
+    ProductService productService;
+
+    @Autowired
+    SupplierService supplierService;
 
     @PostMapping(
-        path = "/admin/add-supplier", 
+        path = "/admin/supplier", 
         consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public String addNewSupplier( Supplier supplier ){
-
-        System.out.println( supplier );
-
+    public String addNewSupplier( Supplier supplier, String option ){
+        switch ( option )
+        {
+            case "add": 
+                supplierService.addNewSupplier( supplier );      
+                break;
+            case "delete": 
+                
+                break;
+        }
         return "redirect:/admin";
     }
 

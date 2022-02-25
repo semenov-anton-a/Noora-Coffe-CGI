@@ -18,7 +18,8 @@ public class DepartmentService {
     @Autowired
     ProductRepo productRepo;
 
-    public List<Department> getAllDependencies() {
+    
+    public List<Department> getAllDepartments() {
         return departmentRepo.findAll();
     }
 

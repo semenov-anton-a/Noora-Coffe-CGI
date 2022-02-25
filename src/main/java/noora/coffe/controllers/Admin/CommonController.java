@@ -31,6 +31,9 @@ public class CommonController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    SupplierService supplierService;
+
     /**
      * @GET (/admin)
      * @param model
@@ -38,19 +41,28 @@ public class CommonController {
      */
     @GetMapping("/admin")
     public String getAdminIndex(Model model) {
-        List<Department> departmentList = departmentService.getAllDependencies();
+        
+        List<Department> departmentList = departmentService.getAllDepartments();
+        List<Supplier> supplierList = supplierService.getAllSuppliers();
+        
+
+        productService.addEntityDependencies( departmentList );
         
         model.addAttribute("department", departmentList);
-        model.addAttribute("productList",
-                productService.sortProductsAndDepartmentName(departmentList));
 
-        return "admin/index";
+        // List<Maker> makerList = makerService.getAllMakers();
+        // model.addAttribute("productList",
+        //         // productService.sortProductsAndDepartmentName(departmentList) 
+        //         // productService.addEntityDependencies(
+        //         //     departmentList, supplierList
+        //         // ) 
+        // );
+
+        // System.out.println( supplierService.getAllSuppliers().get(0).getId() );
+        
+        // model.addAttribute("supplier", supplierService.getAllSuppliers() );
+
+        // return "admin/index";
+        return "admin/test";
     }
-
-    
-
-    
-
-
-
 }

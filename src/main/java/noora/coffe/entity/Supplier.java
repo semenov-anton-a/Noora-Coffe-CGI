@@ -34,7 +34,7 @@ public class Supplier extends AbstractPersistable<Long>{
     /**
      *  Сущность поставщика
      */
-     String company;
+     String name;
      String contact;
      String email;
 

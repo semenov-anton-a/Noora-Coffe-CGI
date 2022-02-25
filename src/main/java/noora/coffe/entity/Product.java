@@ -40,11 +40,25 @@ public class Product extends AbstractPersistable<Long> {
 
 
     @Transient
-    private transient String category;
+    private transient String category_tras;
+    
+    @Transient
+    private transient String maker_tras;
+    
+    @Transient
+    private transient String supplier_tras;
 
 
-    public Product setTransientCategory(String category) {
-        this.category = category;
+    public Product setTransientCategory(String str) {
+        this.category_tras = str;
+        return this;
+    }
+    public Product setTransientMaker(String str) {
+        this.maker_tras = str;
+        return this;
+    }
+    public Product setTransientSupplier(String str) {
+        this.supplier_tras = str;
         return this;
     }
 

@@ -4,7 +4,7 @@
         <input type="text" name="company">
         <button type="submit" name="option" value="add">Add new Supplier</button>
     </form>
-    <!-- <ul th:each="department: ${department}">
-        <li th:text="|ID: ${department.id} &nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp; ${department.name}|">
-    </ul> -->
+    <ul th:each="supplier: ${supplier}">
+        <li th:text="|ID: ${supplier.id} &nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp; ${supplier.company}|">
+    </ul>
 <div>

@@ -5,7 +5,10 @@
         <input type="text" name="name">
 
         <select name="departmentID">
-            <option th:each="department: ${department}" th:value="${department.id}" th:text="${department.name}">
+            <option 
+                th:each="department: ${department}" 
+                th:value="${department.id}" 
+                th:text="${department.name}">
         </select>
         <button type="submit" name="option" value="add">Add new department</button>
     </form>
@@ -24,8 +27,12 @@
                         <input type="hidden" th:value="${ productList.id }" name="id" />
 
                         <select name="departmentID">
-                            <option th:each="department: ${department}" th:value="${department.id}"
-                                th:text="${department.name}">
+                            <option 
+                                th:each="department: ${department}" 
+                                th:value="${department.id}"
+                                th:text="${department.name}"                                
+                                th:selected="(${productList.category} == ${department.name})" 
+                            >                            
                         </select>
                     </div>
                     <div>

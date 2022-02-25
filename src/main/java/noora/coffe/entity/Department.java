@@ -1,9 +1,6 @@
 package noora.coffe.entity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -38,7 +35,7 @@ public class Department extends AbstractPersistable<Long> {
      * Сущность отдела
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -47,7 +44,7 @@ public class Department extends AbstractPersistable<Long> {
     @JoinColumn(name = "department_id")
     private List<Product> products;
 
-    public Department(String name) {
+    public Department( String name ) {
         this.name = name;
     }
 

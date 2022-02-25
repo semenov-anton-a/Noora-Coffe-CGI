@@ -1,6 +1,5 @@
 package noora.coffe.controllers.Admin;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -32,38 +31,25 @@ public class DepartmentController {
     @Autowired
     ProductService productService;
 
-   /**
-     * Add new department
-     * 
-     * @POST (/admin/add-department)
+    /**
+     * @POST (/admin/department)
      * @param department
      * @return
      */
-    @PostMapping( 
-        path = "/admin/add-department",
-        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } 
-    )
-    public String addNewDepartment( Department department ) {
-        if ( department.getName().equals("") ) {
-            return "redirect:/admin";
+    @PostMapping(path = "/admin/department", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    public String addNewDepartment( Department department, String option ) {
+        
+        switch (option) 
+        {
+            case "add":
+                departmentService.addNewDepartment(department);
+                break;                
+            case "delete":
+                departmentService.deleteById(department);
+                break;
         }
-        departmentService.addNewDepartment(department);
+
         return "redirect:/admin";
     }
 
-    /**
-     * Add new department
-     * 
-     * @POST (/admin/add-department)
-     * @param department
-     * @return
-     */
-    @PostMapping( 
-        path = "/admin/remove-department",
-        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } 
-    )
-    public String removeDepartment( Department department ) {        
-        departmentService.deleteById(department);
-        return "redirect:/admin";
-    }
 }

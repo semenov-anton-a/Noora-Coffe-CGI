@@ -1,13 +1,11 @@
 package noora.coffe.services;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import noora.coffe.controllers.Admin.DepartmentController;
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 
@@ -24,12 +22,25 @@ public class DepartmentService {
         return departmentRepo.findAll();
     }
 
-    public void addNewDepartment( Department department ) {
+    @Transactional
+    public boolean addNewDepartment( Department department ) {
+        
+        if ( department.getName().equals("") ) {
+            return false;
+        }
+        
         departmentRepo.save(
             new Department( department.getName().trim() )
         );
+
+        return true;
     }
 
+    /**
+     * Remove cascade 
+     * @param department
+     */
+    @Transactional
     public void deleteById(Department department) {
         departmentRepo.deleteById( department.getId() );
     }

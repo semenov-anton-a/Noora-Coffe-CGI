@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
@@ -55,6 +56,7 @@ public class ProductService {
      * @param product
      * @param departmentID
      */
+    @Transactional
     public void addNewProduct(Product product, Long departmentID) {
         departmentRepo.save(
                 departmentRepo.getById(departmentID).addProduct(product));
@@ -66,6 +68,7 @@ public class ProductService {
      * @param id
      * @param departmentID
      */
+    @Transactional
     public void updateProductDepartment(Long id, Long departmentID) {
         departmentRepo.save(
                 departmentRepo.getById(departmentID)

@@ -61,5 +61,5 @@ public class Department extends AbstractPersistable<Long> {
         this.products.remove(product);        
         this.products.add(product);        
         return this;    
-    }|
+    }
 }

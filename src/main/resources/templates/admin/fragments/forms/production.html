@@ -17,24 +17,41 @@
             <span th:text="|Production: ${ productList.name }|"></span>
             <br />
             <span th:text="|Category: ${ productList.category }|"></span>
-
-            <h4>Set Category</h4>
-
+            
             <div style="margin: 2px 0 0 0">
+                <form method="post" action="/admin/update-product">
+                    
+                    <div>
+                        <label>Set Category :</label>
+                        <input type="hidden" th:value="${ productList.id }" name="id" />
 
-                <form method="post" action="/admin/set-category">
+                        <select name="departmentID">
+                            <option th:each="department: ${department}" th:value="${department.id}"
+                                th:text="${department.name}">
+                        </select>
+                    </div>
+                    <div>
+                        <label>Set Supplier :</label>
+                        <input type="hidden" th:value="${ productList.id }" name="id" />
 
-                    <input type="hidden" th:value="${ productList.id }" name="id"/>
+                        <select name="departmentID">
+                            <option th:each="department: ${department}" th:value="${department.id}"
+                                th:text="${department.name}">
+                        </select>
+                    </div>
+                    <div>
+                        <label>Set Maker :</label>
+                        <input type="hidden" th:value="${ productList.id }" name="id" />
 
-                    <select name="departmentID">
-                        <option 
-                            th:each="department: ${department}" 
-                            th:value="${department.id}"
-                            th:text="${department.name}">
-                    </select>
+                        <select name="departmentID">
+                            <option th:each="department: ${department}" th:value="${department.id}"
+                                th:text="${department.name}">
+                        </select>
+                    </div>
 
-                    <button type="submit" name="">Set Category</button>
-                
+                    <div style="margin:15px 0 0 0">
+                        <button type="submit" name="">Update</button>
+                    </div>
                 </form>
             </div>
 

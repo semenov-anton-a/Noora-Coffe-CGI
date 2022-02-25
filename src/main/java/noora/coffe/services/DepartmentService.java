@@ -23,8 +23,14 @@ public class DepartmentService {
         return departmentRepo.findAll();
     }
 
-    public void addNewDepartment(String department) {
-        departmentRepo.save(new Department(department.trim()));
+    public void addNewDepartment( Department newDepartment ) {
+        departmentRepo.save(
+            new Department( newDepartment.getName().trim() )
+        );
+    }
+
+    public void deleteById(Department department) {
+        departmentRepo.deleteById( department.getId() );
     }
 
 }

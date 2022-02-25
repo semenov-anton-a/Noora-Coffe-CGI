@@ -54,13 +54,30 @@ public class AdminIndexController {
      * @param department
      * @return
      */
-    @PostMapping("/admin/add-department")
-    public String addNewDepartment(@RequestParam String department) {
-        if (department.length() == 0) {
+    @PostMapping( 
+        path = "/admin/add-department",
+        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } 
+    )
+    public String addNewDepartment( Department department ) {
+        if ( department.getName().equals("") ) {
             return "redirect:/admin";
         }
-
         departmentService.addNewDepartment(department);
+        return "redirect:/admin";
+    }
+    /**
+     * Add new department
+     * 
+     * @POST (/admin/add-department)
+     * @param department
+     * @return
+     */
+    @PostMapping( 
+        path = "/admin/remove-department",
+        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } 
+    )
+    public String removeDepartment( Department department ) {        
+        departmentService.deleteById(department);
         return "redirect:/admin";
     }
 
@@ -68,7 +85,7 @@ public class AdminIndexController {
      * Add new product
      * 
      * @POST
-     * @param department
+     * @param department`
      * @return
      */
     @PostMapping(path = "/admin/add-product", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
@@ -88,7 +105,7 @@ public class AdminIndexController {
      * @param department
      * @return
      */
-    @PostMapping(path = "/admin/set-category", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    @PostMapping(path = "/admin/update-product", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
     public String updateProduct(
             @RequestParam Long id,
             @RequestParam Long departmentID) {
@@ -96,4 +113,13 @@ public class AdminIndexController {
         return "redirect:/admin";
     }
 
+
+
+    @PostMapping(path = "/admin/add-supplier", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    public String addNewSupplier(
+            Supplier supplier 
+    ){
+
+        return "redirect:/admin";
+    }
 }

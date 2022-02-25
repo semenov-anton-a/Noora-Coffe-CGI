@@ -34,8 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class Department extends AbstractPersistable<Long> {
 
-    private static final List List = null;
-
     /**
      * Сущность отдела
      */
@@ -53,9 +51,9 @@ public class Department extends AbstractPersistable<Long> {
         this.name = name;
     }
 
-    public Department addProduct( Product product ) {
-        this.products.add( product );        
-        return this;    
+    public Department addProduct(Product product) {
+        this.products.add(product);
+        return this;
     }
 
     @Transactional
@@ -63,33 +61,5 @@ public class Department extends AbstractPersistable<Long> {
         this.products.remove(product);        
         this.products.add(product);        
         return this;    
-    }
-    
-    public List<Product> listProducts( List<Department> departmentProducts ) {
-        
-        Integer size = departmentProducts.size();
-        List<Product> products = new ArrayList<>();
-        
-        for( int i = 0; i <= size-1; i++ ){
-            if( ! departmentProducts.get(i).getProducts().isEmpty() ){
-                List<Product> p = departmentProducts.get(i).getProducts();
-
-                String department = departmentProducts.get(i).getName();
-
-                p.forEach( product -> { 
-                    product.setTransientCategory( department ); 
-                });
-
-                products.addAll( p );
-            }
-        }
-        
-        Collections.sort( products, 
-            (Product o1, Product o2) -> o1.getId().compareTo(o2.getId()) 
-        );
-
-        return products;
-    }
-
-
+    }|
 }

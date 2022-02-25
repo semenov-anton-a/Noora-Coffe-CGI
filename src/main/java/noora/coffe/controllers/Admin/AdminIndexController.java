@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
+import noora.coffe.services.*;
 
 @Controller
 public class AdminIndexController {
@@ -24,76 +25,74 @@ public class AdminIndexController {
     @Autowired
     ProductRepo productRepo;
 
+    @Autowired
+    DepartmentService departmentService;
+
+    @Autowired
+    ProductService productService;
+
+    /**
+     * @GET (/admin)
+     * @param model
+     * @return
+     */
     @GetMapping("/admin")
     public String getAdminIndex(Model model) {
+        List<Department> departmentList = departmentService.getAllDependencies();
+        
+        model.addAttribute("department", departmentList);
+        model.addAttribute("productList",
+                productService.sortProductsAndDepartmentName(departmentList));
 
-        List<Department> dep =  departmentRepo.findAll();
-        model.addAttribute( "department", dep  );
-        
-        List<Product> products = new Department().listProducts(dep);
-        model.addAttribute( "productList", products  );
-        
         return "admin/index";
     }
 
-
     /**
-     *  Add new department 
-     *  @POST
-     *  @param department
-     *  @return
+     * Add new department
+     * 
+     * @POST (/admin/add-department)
+     * @param department
+     * @return
      */
     @PostMapping("/admin/add-department")
     public String addNewDepartment(@RequestParam String department) {
-
         if (department.length() == 0) {
             return "redirect:/admin";
         }
 
-        Department dep = new Department( department.trim() );
-        departmentRepo.save(dep);
-
+        departmentService.addNewDepartment(department);
         return "redirect:/admin";
     }
 
-
     /**
-     *  Add new product 
-     *  @POST
-     *  @param department
-     *  @return
+     * Add new product
+     * 
+     * @POST
+     * @param department
+     * @return
      */
-    @PostMapping(  path = "/admin/add-product",
-        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } )
-    public String addNewProduct( Product product, @RequestParam Long departmentID ) {
-
-        if( product.getName().equals("") ){
+    @PostMapping(path = "/admin/add-product", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    public String addNewProduct(Product product, @RequestParam Long departmentID) {
+        if (product.getName().equals("")) {
             return "redirect:/admin";
-        }  
-        
-        Department dep = departmentRepo.getById( departmentID );
-        departmentRepo.save( dep.addProduct( product ) );
-        
+        }
+
+        productService.addNewProduct(product, departmentID);
         return "redirect:/admin";
     }
 
-
-
     /**
-     *  Update product category 
-     *  @POST
-     *  @param department
-     *  @return
+     * Update product category
+     * 
+     * @POST
+     * @param department
+     * @return
      */
-    @PostMapping(  path = "/admin/set-category",
-        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } )
-    public String updateProduct( @RequestParam Long id, @RequestParam Long departmentID ) {
-
-        Product product = productRepo.getById( id );
-        Department dep = departmentRepo.getById( departmentID );
-        
-        departmentRepo.save( dep.updateProduct( product ) );
-
+    @PostMapping(path = "/admin/set-category", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    public String updateProduct(
+            @RequestParam Long id,
+            @RequestParam Long departmentID) {
+        productService.updateProductDepartment(id, departmentID);
         return "redirect:/admin";
     }
 

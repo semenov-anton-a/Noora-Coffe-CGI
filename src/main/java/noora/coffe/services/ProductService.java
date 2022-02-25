@@ -1,0 +1,75 @@
+package noora.coffe.services;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import noora.coffe.entity.*;
+import noora.coffe.repos.*;
+
+@Service
+public class ProductService {
+
+    @Autowired
+    DepartmentRepo departmentRepo;
+
+    @Autowired
+    ProductRepo productRepo;
+
+    /**
+     * Sort Products And add Department name
+     * 
+     * @param departmentList
+     * @return
+     */
+    public List<Product> sortProductsAndDepartmentName(List<Department> departmentList) {
+        Integer size = departmentList.size();
+        List<Product> products = new ArrayList<>();
+
+        for (int i = 0; i <= size - 1; i++) {
+            if (!departmentList.get(i).getProducts().isEmpty()) {
+                List<Product> p = departmentList.get(i).getProducts();
+
+                String department = departmentList.get(i).getName();
+
+                p.forEach(product -> {
+                    product.setTransientCategory(department);
+                });
+
+                products.addAll(p);
+            }
+        }
+
+        Collections.sort(products,
+                (Product o1, Product o2) -> o1.getId().compareTo(o2.getId()));
+
+        return products;
+    }
+
+    /**
+     * Add new Product
+     * 
+     * @param product
+     * @param departmentID
+     */
+    public void addNewProduct(Product product, Long departmentID) {
+        departmentRepo.save(
+                departmentRepo.getById(departmentID).addProduct(product));
+    }
+
+    /**
+     * Update product Department ID
+     * 
+     * @param id
+     * @param departmentID
+     */
+    public void updateProductDepartment(Long id, Long departmentID) {
+        departmentRepo.save(
+                departmentRepo.getById(departmentID)
+                        .updateProduct(productRepo.getById(id)));
+    }
+
+}

@@ -30,24 +30,7 @@ public class ProductController  {
 
     @Autowired
     ProductService productService;
-
-
-    /**
-     * Add new product
-     * 
-     * @POST
-     * @param department`
-     * @return
-     */
-    @PostMapping(path = "/admin/add-product", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public String addNewProduct(Product product, @RequestParam Long departmentID) {
-        if (product.getName().equals("")) {
-            return "redirect:/admin";
-        }
-
-        productService.addNewProduct(product, departmentID);
-        return "redirect:/admin";
-    }
+    
     /**
      * Update product category
      * 
@@ -55,11 +38,31 @@ public class ProductController  {
      * @param department
      * @return
      */
-    @PostMapping(path = "/admin/update-product", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    @PostMapping(
+        path = "/admin/product", 
+        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
     public String updateProduct(
-            @RequestParam Long id,
-            @RequestParam Long departmentID) {
-        productService.updateProductDepartment(id, departmentID);
+            // @RequestParam Long id,
+            Product product,
+            @RequestParam Long departmentID,
+            @RequestParam String option
+    ){
+        System.out.println( option );
+
+        switch( option )
+        {
+            case "add" :
+                if (product.getName().equals("")) { return "redirect:/admin"; }
+                productService.addNewProduct(product, departmentID);
+                break;
+            case "update" : 
+                productService.updateProductDepartment( product.getId(), departmentID);  
+                break;
+            case "delete" :
+                productService.deleteById( product.getId() ); 
+                break;
+        }
+
         return "redirect:/admin";
     }
 

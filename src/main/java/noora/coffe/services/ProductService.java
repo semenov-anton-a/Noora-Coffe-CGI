@@ -72,4 +72,8 @@ public class ProductService {
                         .updateProduct(productRepo.getById(id)));
     }
 
+    public void deleteById(Long id) {
+        productRepo.deleteById(id);
+    }
+
 }

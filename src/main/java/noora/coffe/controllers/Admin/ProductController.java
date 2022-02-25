@@ -17,7 +17,7 @@ import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @Controller
-public class AdminIndexController {
+public class ProductController  {
 
     @Autowired
     DepartmentRepo departmentRepo;
@@ -31,55 +31,6 @@ public class AdminIndexController {
     @Autowired
     ProductService productService;
 
-    /**
-     * @GET (/admin)
-     * @param model
-     * @return
-     */
-    @GetMapping("/admin")
-    public String getAdminIndex(Model model) {
-        List<Department> departmentList = departmentService.getAllDependencies();
-        
-        model.addAttribute("department", departmentList);
-        model.addAttribute("productList",
-                productService.sortProductsAndDepartmentName(departmentList));
-
-        return "admin/index";
-    }
-
-    /**
-     * Add new department
-     * 
-     * @POST (/admin/add-department)
-     * @param department
-     * @return
-     */
-    @PostMapping( 
-        path = "/admin/add-department",
-        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } 
-    )
-    public String addNewDepartment( Department department ) {
-        if ( department.getName().equals("") ) {
-            return "redirect:/admin";
-        }
-        departmentService.addNewDepartment(department);
-        return "redirect:/admin";
-    }
-    /**
-     * Add new department
-     * 
-     * @POST (/admin/add-department)
-     * @param department
-     * @return
-     */
-    @PostMapping( 
-        path = "/admin/remove-department",
-        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } 
-    )
-    public String removeDepartment( Department department ) {        
-        departmentService.deleteById(department);
-        return "redirect:/admin";
-    }
 
     /**
      * Add new product
@@ -97,7 +48,6 @@ public class AdminIndexController {
         productService.addNewProduct(product, departmentID);
         return "redirect:/admin";
     }
-
     /**
      * Update product category
      * 
@@ -113,13 +63,4 @@ public class AdminIndexController {
         return "redirect:/admin";
     }
 
-
-
-    @PostMapping(path = "/admin/add-supplier", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public String addNewSupplier(
-            Supplier supplier 
-    ){
-
-        return "redirect:/admin";
-    }
 }

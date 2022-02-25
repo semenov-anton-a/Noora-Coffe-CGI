@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import noora.coffe.controllers.Admin.DepartmentController;
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 
@@ -23,9 +24,9 @@ public class DepartmentService {
         return departmentRepo.findAll();
     }
 
-    public void addNewDepartment( Department newDepartment ) {
+    public void addNewDepartment( Department department ) {
         departmentRepo.save(
-            new Department( newDepartment.getName().trim() )
+            new Department( department.getName().trim() )
         );
     }
 

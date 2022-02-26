@@ -17,7 +17,7 @@ import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @Controller
-public class DepartmentController {
+public class DepartmentController extends CommonController{
 
     @Autowired
     DepartmentRepo departmentRepo;
@@ -30,6 +30,13 @@ public class DepartmentController {
 
     @Autowired
     ProductService productService;
+
+
+    @GetMapping("/admin/departments")
+    public String getDepartments(){
+        return "admin/departments";
+    }
+
 
     /**
      * @POST (/admin/department)

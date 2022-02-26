@@ -17,27 +17,45 @@ import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @Controller
-public class SupplierController{
+public class SupplierController extends CommonController{
     
+    @Autowired
+    DepartmentRepo departmentRepo;
+
+    @Autowired
+    ProductRepo productRepo;
+
+    @Autowired
+    DepartmentService departmentService;
+
     @Autowired
     ProductService productService;
 
-    @Autowired
-    SupplierService supplierService;
 
-    @PostMapping(
-        path = "/admin/supplier", 
-        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public String addNewSupplier( Supplier supplier, String option ){
-        switch ( option )
+    @GetMapping("/admin/suppliers")
+    public String getDepartments(){
+        return "admin/suppliers";
+    }
+
+
+    /**
+     * @POST (/admin/department)
+     * @param department
+     * @return
+     */
+    @PostMapping(path = "/admin/supplier", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    public String addNewDepartment( Department department, String option ) {
+        
+        switch (option) 
         {
-            case "add": 
-                supplierService.addNewSupplier( supplier );      
-                break;
-            case "delete": 
-                
+            case "add":
+                departmentService.addNewDepartment(department);
+                break;                
+            case "delete":
+                departmentService.deleteById(department);
                 break;
         }
+
         return "redirect:/admin";
     }
 

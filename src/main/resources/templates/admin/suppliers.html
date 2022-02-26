@@ -1,0 +1,87 @@
+<fragment th:remove="tag" th:include="admin/@frg/html/static :: html_head"></fragment>
+<div class="container">
+    <div th:replace="admin/@frg/navbar :: navbar"></div>
+    <hr />
+    <div class="col-md-12">
+        <div class="row g-2">
+            <!-- LIST -->
+            <div class="col-md-4">
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-actio p-1">
+                        <label class="list-group fs-4 text-muted text-center">Add Suppliers</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" 
+                                placeholder="Add Suppliers"
+                                aria-describedby="button-addon2">
+                            <button type="button" class="btn btn-primary me-1">
+                                    Add<i class="fa-solid fa-square-plus ms-1"></i></button>
+                        </div>
+                    </div>
+                    <a href="/admin/suppliers" aria-current="true"
+                        class="list-group-item list-group-item-action active">
+                        Show All
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                    <a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+                </div>
+            </div>
+
+            <!-- PRODUCTS LIST -->
+            <div class="col-md-8">
+                <div class="row row-cols-1 row-cols-md-2 g-1">
+                    <div class="col">
+                        <div class="card">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+<fragment th:include="admin/@frg/html/footer :: footer" th:remove="tag" />
+<fragment th:include="admin/@frg/html/static :: javascript" th:remove="tag" />
+</body>
+
+</html>

@@ -33,7 +33,9 @@ public class DepartmentController extends CommonController{
 
 
     @GetMapping("/admin/departments")
-    public String getDepartments(){
+    public String getDepartments( Model model ){
+        List<Department> departmentList = departmentService.getAllDepartments();
+        model.addAttribute( "department", departmentList );
         return "admin/departments";
     }
 

@@ -19,7 +19,7 @@ public class DepartmentService {
     ProductRepo productRepo;
 
     
-    public List<Department> getAllDepartments() {
+    public List<Department> getDepartments() {
         return departmentRepo.findAll();
     }
 

@@ -15,6 +15,7 @@ import lombok.Setter;
 
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.lang.Nullable;
 
 @Data
 @Entity
@@ -29,7 +30,7 @@ public class Product extends AbstractPersistable<Long> {
      * Сущность товаров
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
 
     String name;
@@ -39,14 +40,17 @@ public class Product extends AbstractPersistable<Long> {
 
 
 
+    @Nullable
     @Transient
-    private transient String category_tras;
+    private transient String category_tras = null;
     
+    @Nullable
     @Transient
-    private transient String maker_tras;
+    private transient String maker_tras = null;
     
+    @Nullable
     @Transient
-    private transient String supplier_tras;
+    private transient String supplier_tras = null;
 
 
     public Product setTransientCategory(String str) {

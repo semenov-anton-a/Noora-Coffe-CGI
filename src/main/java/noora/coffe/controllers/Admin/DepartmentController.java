@@ -34,12 +34,24 @@ public class DepartmentController extends CommonController{
 
     @GetMapping("/admin/departments")
     public String getDepartments( Model model ){
-        List<Department> departmentList = departmentService.getAllDepartments();
-        model.addAttribute( "department", departmentList );
+        model.addAttribute( "department", departmentService.getDepartments() );
+        model.addAttribute( "allProducts", productService.getProducts() );
         return "admin/departments";
     }
-
-
+    /**
+     * 
+     * @param model
+     * @return
+     */
+    @GetMapping("/admin/departments/page={id}")
+    public String getProductsByDepartment( Model model ){
+        
+        
+        // model.addAttribute( "department", departmentService.getDepartments() );
+        // model.addAttribute( "allProducts", productService.getProducts() );
+        
+        return "admin/departments";
+    }
     /**
      * @POST (/admin/department)
      * @param department

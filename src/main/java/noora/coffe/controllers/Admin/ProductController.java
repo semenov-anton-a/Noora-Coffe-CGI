@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +18,8 @@ import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @Controller
-public class ProductController  {
+public class ProductController extends CommonController{
+
 
     @Autowired
     DepartmentRepo departmentRepo;
@@ -31,6 +33,15 @@ public class ProductController  {
     @Autowired
     ProductService productService;
     
+
+    @GetMapping("/admin/products")
+    public String getProduct(){
+
+        // model.addAttribute( "browserTitle" , "asd" ); 
+
+        return "admin/products";
+    }
+
     /**
      * Update product category
      * 
@@ -47,8 +58,6 @@ public class ProductController  {
             @RequestParam Long departmentID,
             @RequestParam String option
     ){
-        System.out.println( option );
-
         switch( option )
         {
             case "add" :

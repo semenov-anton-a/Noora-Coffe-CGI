@@ -17,7 +17,7 @@ import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @Controller
-public class SupplierController{
+public class SupplierController extends CommonController{
     
     @Autowired
     ProductService productService;

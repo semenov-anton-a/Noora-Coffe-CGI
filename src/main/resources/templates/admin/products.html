@@ -1,0 +1,105 @@
+<fragment th:remove="tag" th:include="admin/@frg/html/static :: html_head" />
+<div class="container">
+
+    <div th:replace="admin/@frg/navbar :: navbar"></div>
+    <hr />
+    <div class="col-md-12 d-flex justify-content-end">
+        <button type="button" id="modal-add-product" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+            data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add Product <i
+                class="fa-solid fa-square-plus ms-1"></i>
+        </button>
+    </div>
+
+
+    <!-- MODAL -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="#" method="post">
+                        <div class="input-group mb-3 input-group-sm">
+                            <input type="text" class="form-control" placeholder="Product name" aria-label=""
+                                aria-describedby="basic-addon2">
+                        </div>
+                        <label class="form-label">Product price</label>
+                        <div class="input-group mb-3 input-group-sm">
+                            <input type="number" min="1" class="form-control"
+                                aria-label="Amount (to the nearest dollar)">
+                            <!-- <span class="input-group-text">.00</span> -->
+                        </div>
+
+                        <div class="mb-3 input-group-sm">
+                            <label for="exampleFormControlTextarea1" class="form-label">Product description</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-sm-3 text-center">
+                                <label class="text-muted" for="exampleFormControl">Category</label>
+                                <select class="form-select" id="specificSizeSelect">
+                                    <option selected>Choose...</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <label class="text-muted" for="specificSizeSelect">Supplier</label>
+                                <select class="form-select" id="specificSizeSelect">
+                                    <option selected>Choose...</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <label class="text-muted" for="specificSizeSelect">Marker</label>
+                                <select class="form-select" id="specificSizeSelect">
+                                    <option selected>Choose...</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Upload image</label>
+                                <input class="form-control" type="file" id="formFile">
+                              </div>
+                        </div>
+                        <div class="col-2 mt-3 w-10">
+                            <img src="https://picsum.photos/200/300" class="img-thumbnail" alt="...">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger me-1">
+                        Close <i class="fa-solid fa-trash ms-1"></i></button>
+                    <button type="button" class="btn btn-sm btn-outline-success">
+                        Add <i class="fa-solid fa-square-plus ms-1"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Auto Modal OPEN -->
+    <script>window.onload = function () { document.getElementById("modal-add-product").click(); };</script>
+    <!-- MODAL END -->
+
+
+</div>
+
+
+<fragment th:remove="tag" th:include="admin/@frg/html/static :: javascript" />
+</body>
+
+</html>

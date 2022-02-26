@@ -1,19 +1,8 @@
-<h1>ADMIN INDEX</h1>
-<div style="border: 1px solid rgb(0, 0, 0);" th:include="admin/fragments/forms/department :: department"></div>
-
-
-
-<div style="border: 1px solid rgb(0, 0, 0);" th:include="admin/fragments/forms/supplier :: supplier"></div>
-
-
-<div style="border: 1px solid rgb(0, 0, 0);" th:include="admin/fragments/forms/production :: production"></div>
-
-
-<!-- <div th:replace="admin/fragments/forms/production :: production"></div> -->
-<!-- <div th:replace="admin/fragments/forms/maker :: maker"></div>
-<div th:replace="admin/fragments/forms/supplier :: supplier"></div> -->
-
-<!-- <a href="/admin/department">Add Department</a><br/><br/>
-<a href="/admin/production">Add Production</a><br/><br/>
-<a href="/admin/maker">Add Maker</a><br/><br/>
-<a href="/admin/supplier">Add supplier</a><br/><br/> -->
+<fragment th:remove="tag" th:include="admin/@frg/html/static :: html_head" />
+<div class="container">
+    <div th:replace="admin/@frg/navbar :: navbar"></div>
+    <hr/>
+</div>
+<fragment th:remove="tag" th:include="admin/@frg/html/static :: javascript"/>
+</body>
+</html>

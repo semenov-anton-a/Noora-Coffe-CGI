@@ -1,8 +1,8 @@
 <fragment th:remove="tag" th:include="admin/@frg/html/static :: html_head" />
 <div class="container">
-    <div th:replace="admin/@frg/navbar :: navbar"></div>
-    <hr/>
+    <div th:replace="admin/@frg/navbar :: navbar"/></div>
+    <hr />
 </div>
-<fragment th:remove="tag" th:include="admin/@frg/html/static :: javascript"/>
-</body>
-</html>
+<fragment th:include="admin/@frg/html/footer :: footer" th:remove="tag"/>
+<fragment th:include="admin/@frg/html/static :: javascript" th:remove="tag"/>
+</body></html>

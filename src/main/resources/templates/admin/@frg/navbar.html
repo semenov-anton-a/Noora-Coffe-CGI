@@ -6,12 +6,34 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse " id="navbarNavDropdown">
+
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="/admin/products">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/suppliers">Suppliers</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/makers">Makers</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/departments">Departments</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/products"
+                        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/products') ? 'active':''}">
+                        Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/suppliers"
+                        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/suppliers') ? 'active':''}">
+                        Suppliers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/makers"
+                        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/makers') ? 'active':''}">
+                        Makers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/departments"
+                        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/departments') ? 'active':''}">
+                        Departments
+                    </a>
+                </li>
             </ul>
+
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown ">
                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
@@ -21,6 +43,7 @@
                     </ul>
                 </li>
             </ul>
+
         </div>
     </div>
 </nav>

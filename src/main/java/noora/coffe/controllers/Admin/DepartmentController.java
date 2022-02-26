@@ -31,6 +31,13 @@ public class DepartmentController extends CommonController{
     @Autowired
     ProductService productService;
 
+
+    @GetMapping("/admin/departments")
+    public String getDepartments(){
+        return "admin/departments";
+    }
+
+
     /**
      * @POST (/admin/department)
      * @param department

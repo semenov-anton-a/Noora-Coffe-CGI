@@ -94,12 +94,10 @@
     <!-- Auto Modal OPEN -->
     <script>window.onload = function () { document.getElementById("modal-add-product").click(); };</script>
     <!-- MODAL END -->
-
-
 </div>
 
 
-<fragment th:remove="tag" th:include="admin/@frg/html/static :: javascript" />
+<fragment th:include="admin/@frg/html/footer :: footer" th:remove="tag"/>
+<fragment th:include="admin/@frg/html/static :: javascript" th:remove="tag"/>
 </body>
-
 </html>

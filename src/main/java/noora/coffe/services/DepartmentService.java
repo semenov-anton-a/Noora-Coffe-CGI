@@ -1,6 +1,7 @@
 package noora.coffe.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,11 @@ public class DepartmentService {
     
     public List<Department> getDepartments() {
         return departmentRepo.findAll();
+    }
+
+    
+    public List<Department> getDepartmentsById(Long id) {
+        return departmentRepo.findAllById( id );
     }
 
     @Transactional
@@ -45,5 +51,7 @@ public class DepartmentService {
     public void deleteById(Department department) {
         departmentRepo.deleteById( department.getId() );
     }
+
+
 
 }

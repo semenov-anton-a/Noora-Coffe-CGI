@@ -18,46 +18,67 @@
                                 Add<i class="fa-solid fa-square-plus ms-1"></i></button>
                         </div>
                     </div>
-                    <a href="/admin/departments" aria-current="true"
-                        class="list-group-item list-group-item-action active">Show All</a>
-                    <a th:each="department: ${department}" th:text="${department.name}"
-                        th:href="|/admin/department/${department.id}|" class="list-group-item list-group-item-action"
+                    <!-- <a href="/admin/department" aria-current="true"
+                        th:classappend="
+                            ${#httpServletRequest
+                                .getRequestURI()
+                                .startsWith('/admin/department') ? 'active':''}"
+                        
+                        class="list-group-item list-group-item-action">Show All</a> -->
+                    <a href="/admin/department" aria-current="true"
+                        th:classappend="${ styleActiveClass == -1 } ? 'active' :''" 
+      
+                        class="list-group-item list-group-item-action">Show All</a>
+                    
+                    <a  th:each="department: ${departmentsList}" 
+                        th:text="${department.name}"
+                        th:href="|/admin/department/${department.id}|" 
+                        th:classappend="${ styleActiveClass == department.id } ? 'active' :''" 
+                        class="list-group-item list-group-item-action"
                         role="button"></a>
                 </div>
             </div>
 
             <!-- PRODUCTS LIST -->
             <div class="col-md-8">
+                
                 <div class="row row-cols-1 row-cols-md-2 g-1">
-                    <div class="col" th:each="prod: ${allProducts}">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 th:text="${prod.name}">TITLE</h5>
-                                <p class="card-text">DESCRIPTION</p>
-                                <!-- <p th:text="${prod.name}" class="card-text">DESCRIPTION</p> -->
+                    <th:block th:each="department: ${department}">
+                        <div class="col" th:each="prod: ${department.products}">
 
-                                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                    <a type="button" class="btn btn-sm btn-outline-danger me-1">
-                                        Remove<i class="fa fa-trash ms-1"></i>
-                                    </a>
-                                    <a type="button" th:href="|/admin/product/${prod.id}|"
-                                        class="btn btn-sm btn-outline-primary">
-                                        Details
-                                    </a>
+                            <div class="card">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 th:text="${prod.name}">TITLE</h5>
+                                    <p class="card-text">DESCRIPTION</p>
+                                    <!-- <p th:text="${prod.name}" class="card-text">DESCRIPTION</p> -->
+
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <a type="button" class="btn btn-sm btn-outline-danger me-1">
+                                            Remove<i class="fa fa-trash ms-1"></i>
+                                        </a>
+                                        <a type="button" th:href="|/admin/product/${prod.id}|"
+                                            class="btn btn-sm btn-outline-primary">
+                                            Details
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+                        </div>
+                    </th:block>
+                </div>
+                
+            </div><!--  -->
         </div>
-        <!-- ROW END -->
+
     </div>
+    <!-- ROW END -->
+</div>
 </div>
 
 <fragment th:include="admin/@frg/html/footer :: footer" th:remove="tag" />
 <fragment th:include="admin/@frg/html/static :: javascript" th:remove="tag" />
+</body>
 
-</body></html>
+</html>

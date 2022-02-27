@@ -87,6 +87,13 @@ public class ProductService {
     }
 
 
+    /**
+     * GET ALL Products
+     * @return
+     */
+    public List<Product> getProducts() { return productRepo.findAll(); }
+
+
     // public List<Product> addEntityDependencies(
     //     List<Department> departmentList,
     //     List<Supplier> supplierList

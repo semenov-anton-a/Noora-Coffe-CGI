@@ -4,6 +4,7 @@ package noora.coffe.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -38,10 +39,14 @@ public class Department extends AbstractPersistable<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique=true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "department_id")
+    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    // @JoinColumn(name = "department_id")
+    // private List<Product> products;
+    
+    @OneToMany(mappedBy="department",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Product> products;
 
     public Department( String name ) {

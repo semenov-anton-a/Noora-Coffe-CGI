@@ -38,26 +38,26 @@ public class SupplierController extends CommonController{
     }
 
 
-    /**
-     * @POST (/admin/department)
-     * @param department
-     * @return
-     */
-    @PostMapping(path = "/admin/supplier", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public String addNewDepartment( Department department, String option ) {
+    // /**
+    //  * @POST (/admin/department)
+    //  * @param department
+    //  * @return
+    //  */
+    // @PostMapping(path = "/admin/supplier", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    // public String addNewDepartment( Department department, String option ) {
         
-        switch (option) 
-        {
-            case "add":
-                departmentService.addNewDepartment(department);
-                break;                
-            case "delete":
-                departmentService.deleteById(department);
-                break;
-        }
+    //     switch (option) 
+    //     {
+    //         case "add":
+    //             departmentService.addNewDepartment(department);
+    //             break;                
+    //         case "delete":
+    //             departmentService.deleteById(department);
+    //             break;
+    //     }
 
-        return "redirect:/admin";
-    }
+    //     return "redirect:/admin";
+    // }
 
 
 }

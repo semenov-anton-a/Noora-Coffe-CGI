@@ -26,29 +26,29 @@ public class ProductService {
      * @param departmentList
      * @return
      */
-    public List<Product> sortProductsAndDepartmentName(List<Department> departmentList) {
-        Integer size = departmentList.size();
-        List<Product> products = new ArrayList<>();
+    // public List<Product> sortProductsAndDepartmentName(List<Department> departmentList) {
+    //     Integer size = departmentList.size();
+    //     List<Product> products = new ArrayList<>();
 
-        for (int i = 0; i <= size - 1; i++) {
-            if (!departmentList.get(i).getProducts().isEmpty()) {
-                List<Product> p = departmentList.get(i).getProducts();
+    //     for (int i = 0; i <= size - 1; i++) {
+    //         if (!departmentList.get(i).getProducts().isEmpty()) {
+    //             List<Product> p = departmentList.get(i).getProducts();
 
-                String department = departmentList.get(i).getName();
+    //             String department = departmentList.get(i).getName();
 
-                p.forEach(product -> {
-                    product.setTransientCategory(department);
-                });
+    //             p.forEach(product -> {
+    //                 product.setTransientCategory(department);
+    //             });
 
-                products.addAll(p);
-            }
-        }
+    //             products.addAll(p);
+    //         }
+    //     }
 
-        Collections.sort(products,
-                (Product o1, Product o2) -> o1.getId().compareTo(o2.getId()));
+    //     Collections.sort(products,
+    //             (Product o1, Product o2) -> o1.getId().compareTo(o2.getId()));
 
-        return products;
-    }
+    //     return products;
+    // }
 
     /**
      * Add new Product
@@ -58,8 +58,16 @@ public class ProductService {
      */
     @Transactional
     public void addNewProduct(Product product, Long departmentID) {
-        departmentRepo.save(
-                departmentRepo.getById(departmentID).addProduct(product));
+        
+        System.out.println("==========================");
+        Department dep = departmentRepo.getById( departmentID );
+        Product p = product.setDepartment( dep );
+        productRepo.save( p );        
+        System.out.println("==========================");
+
+        // departmentRepo.save( product );
+        // departmentRepo.save(
+        //         departmentRepo.getById(departmentID).addProduct(product));
     }
     /**
      * Update product Department ID

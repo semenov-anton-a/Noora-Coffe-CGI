@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import noora.coffe.entity.*;
@@ -102,19 +103,12 @@ public class DepartmentController extends CommonController {
      * @param department
      * @return
      */
-    @PostMapping(path = "/admin/department", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public String addNewDepartment(Department department, String option) {
-
-        switch (option) {
-            case "add":
-                departmentService.addNewDepartment(department);
-                break;
-            case "delete":
-                departmentService.deleteById(department);
-                break;
-        }
-
-        return "redirect:/admin";
+    @PostMapping(
+        path = "/admin/department/add", 
+        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } )
+    public String addNewDepartment( String name) {
+        departmentService.addNewDepartment(name);
+        return "redirect:/admin/department";
     }
     /**
      * 

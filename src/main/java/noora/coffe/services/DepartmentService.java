@@ -38,17 +38,21 @@ public class DepartmentService {
         return departmentRepo.findAllById( id );
     }
 
+    /**
+     * 
+     * @param name
+     * @return
+     */
     @Transactional
-    public boolean addNewDepartment( Department department ) 
-    {
-        if ( department.getName().equals("") ) {
-            return false;
-        }
+    public boolean addNewDepartment( String name ) {   
+        // Not Empty
+        if ( name.equals("") ) { return false; }
         
-        departmentRepo.save(
-            new Department( department.getName().trim() )
-        );
-
+        // Check Exist same name in a DB
+        if( departmentRepo.findByName(name) != null ){ return false; }
+        
+        // Save to DB
+        departmentRepo.save( new Department( name.trim() ) );
         return true;
     }
     /**
@@ -56,8 +60,9 @@ public class DepartmentService {
      * @param department
      */
     @Transactional
-    public void deleteById(Department department)
-    {
-        departmentRepo.deleteById( department.getId() );
+    public boolean deleteById( Long id ) {
+        if( departmentRepo.findById(id) != null ){ return false; }
+        departmentRepo.deleteById( id );
+        return true;
     }
 }

@@ -1,15 +1,15 @@
 <div th:fragment="department" >
     <h1>Add Department</h1>
-    <form method="post" action="/admin/add-department">
+    <form method="post" action="/admin/department">
         <input type="text" name="name">
-        <button type="submit" name="">Add new department</button>
+        <button type="submit" name="option" value="add">Add new department</button>
     </form>
     <ul>
         <li th:each="department: ${department}">
             <span th:text="|ID: ${department.id}  ${department.name}|"></span>
-            <form method="post" action="/admin/remove-department">
+            <form method="post" action="/admin/department">
                 <input type="hidden" name="id" th:value="${department.id}">
-                <input type="submit" value="Remove Department">
+                <button type="submit" name="option" value="delete">Remove Department</button>
             </form>
         </li>
     </ul>

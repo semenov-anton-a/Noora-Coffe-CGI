@@ -1,11 +1,13 @@
 package noora.coffe.services;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
@@ -19,18 +21,43 @@ public class DepartmentService {
     @Autowired
     ProductRepo productRepo;
 
-    public List<Department> getAllDependencies() {
-        return departmentRepo.findAll();
+    
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    @Transactional
+    public List<Department> getDepartments( Long id ) 
+    {
+        if( id == -1L )
+        { 
+            return departmentRepo.findAll(); 
+        }
+        
+        return departmentRepo.findAllById( id );
     }
 
-    public void addNewDepartment( Department newDepartment ) {
+    @Transactional
+    public boolean addNewDepartment( Department department ) 
+    {
+        if ( department.getName().equals("") ) {
+            return false;
+        }
+        
         departmentRepo.save(
-            new Department( newDepartment.getName().trim() )
+            new Department( department.getName().trim() )
         );
-    }
 
-    public void deleteById(Department department) {
+        return true;
+    }
+    /**
+     * Remove cascade 
+     * @param department
+     */
+    @Transactional
+    public void deleteById(Department department)
+    {
         departmentRepo.deleteById( department.getId() );
     }
-
 }

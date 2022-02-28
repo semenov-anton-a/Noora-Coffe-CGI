@@ -1,0 +1,10 @@
+<div th:fragment="supplier" >
+    <h1>Add Supplier</h1>
+    <form method="post" action="/admin/supplier">
+        <input type="text" name="company">
+        <button type="submit" name="option" value="add">Add new Supplier</button>
+    </form>
+    <ul th:each="supplier: ${supplier}">
+        <li th:text="|ID: ${supplier.id} &nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp; ${supplier.company}|">
+    </ul>
+<div>

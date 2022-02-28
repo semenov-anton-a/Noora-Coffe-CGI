@@ -40,8 +40,12 @@ public class Department extends AbstractPersistable<Long> {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "department_id")
+    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    // @JoinColumn(name = "department_id")
+    // private List<Product> products;
+    
+    @OneToMany(mappedBy="department",cascade=CascadeType.REMOVE)
+    // @JoinColumn(name = "department_id")
     private List<Product> products;
 
     public Department( String name ) {

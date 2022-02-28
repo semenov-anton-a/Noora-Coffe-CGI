@@ -34,14 +34,14 @@ public class Supplier extends AbstractPersistable<Long>{
     /**
      *  Сущность поставщика
      */
-     String company;
+     String name;
      String contact;
      String email;
 
 
-     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-     @JoinColumn(name = "supplier_id")
-     private List<Product> products;
+    //  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //  @JoinColumn(name = "supplier_id")
+    //  private List<Product> products;
 
 
 }

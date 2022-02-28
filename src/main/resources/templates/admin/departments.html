@@ -1,0 +1,102 @@
+<fragment th:remove="tag" th:include="admin/@frg/html/static :: html_head"></fragment>
+
+<div class="container">
+    <div th:replace="admin/@frg/navbar :: navbar"></div>
+    <hr />
+    <div class="col-md-12">
+        <div class="row g-2">
+
+            <!-- LIST -->
+            <div class="col-md-4">
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-actio p-1">
+                        <label class="list-group fs-4 text-muted text-center">Add Department</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Add Department"
+                                aria-describedby="button-addon2">
+                            <button type="button" class="btn btn-primary me-1">
+                                Add<i class="fa-solid fa-square-plus ms-1"></i></button>
+                        </div>
+                    </div>
+                    <!-- <a href="/admin/department" aria-current="true"
+                        th:classappend="
+                            ${#httpServletRequest
+                                .getRequestURI()
+                                .startsWith('/admin/department') ? 'active':''}"
+                        
+                        class="list-group-item list-group-item-action">Show All</a> -->
+                    <a href="/admin/department" aria-current="true"
+                        th:classappend="${ styleActiveClass == -1 } ? 'active' :''"
+                        class="list-group-item list-group-item-action">Show All</a>
+
+                    <a th:each="department: ${departmentsList}" th:text="${department.name}"
+                        th:href="|/admin/department/${department.id}|"
+                        th:classappend="${ styleActiveClass == department.id } ? 'active' :''"
+                        class="list-group-item list-group-item-action" role="button"></a>
+                </div>
+            </div>
+
+            <!-- PRODUCTS LIST -->
+            <div class="col-md-8">
+                <div class="row row-cols-1 row-cols-md-2 g-1">
+
+                    <!-- <th:block th:each="department: ${department}">
+                        <div class="col" th:each="prod: ${department.products}">
+                            <div class="card">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 th:text="${prod.name}">TITLE</h5>
+                                    <p class="card-text">DESCRIPTION</p>
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <a type="button" class="btn btn-sm btn-outline-danger me-1">
+                                            Remove<i class="fa fa-trash ms-1"></i>
+                                        </a>
+                                        <a type="button" th:href="|/admin/product/${prod.id}|"
+                                            class="btn btn-sm btn-outline-primary">
+                                            Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block> -->
+                    
+                    <th:block th:each="prod: ${productList}">
+                        <div class="col">
+                            <div class="card">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 th:text="${prod.name}">TITLE</h5>
+                                    <p class="card-text">DESCRIPTION</p>
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <a type="button" class="btn btn-sm btn-outline-danger me-1">
+                                            Remove<i class="fa fa-trash ms-1"></i>
+                                        </a>
+                                        <a type="button" th:href="|/admin/product/${prod.id}|"
+                                            class="btn btn-sm btn-outline-primary">
+                                            Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+
+                </div>
+
+            </div><!--  -->
+        </div>
+
+    </div>
+    <div class="mt-5">
+        <fragment th:include="admin/@frg/html/static :: pagination" th:remove="tag" />
+    </div>
+    <!-- ROW END -->
+</div>
+</div>
+
+<fragment th:include="admin/@frg/html/footer :: footer" th:remove="tag" />
+<fragment th:include="admin/@frg/html/static :: javascript" th:remove="tag" />
+</body>
+
+</html>

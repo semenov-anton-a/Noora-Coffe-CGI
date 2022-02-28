@@ -42,98 +42,61 @@ public class DepartmentController extends CommonController {
      * @return
      */
     @ModelAttribute("departmentsList")
-    private List<Department> getDepartmentsList( Model model , @RequestParam(defaultValue = "-1") Long Id) {
-        List<Department> departments = departmentService.getDepartments( Id );
+    private List<Department> getDepartmentsList(Model model, @RequestParam(defaultValue = "-1") Long Id) {
+        List<Department> departments = departmentService.getDepartments(Id);
         model.addAttribute("department", departments);
-        model.addAttribute("styleActiveClass", Id );
+        model.addAttribute("styleActiveClass", Id);
         return departments;
     }
 
-    @GetMapping("/admin/department")
-    public String getDepartments(Model model, @RequestParam(defaultValue = "0") Integer page) {
-        
 
+    private int itemsCoutOfPage = 4;
+    private DepartmentController productPageable(Model model,  Page<Product> productList, Integer pageNum  ){
+        int pageB = 0;
+        pageB = ( productList.hasPrevious() ) ? pageNum - 1 : -1;
 
-        System.out.println("=================____DEPARTMENTS____=====================");
-        // System.out.println(departments);
-        System.out.println("================================================");
+        int pageN = 0;
+        pageN = (productList.hasNext() ) ? pageNum + 1 : -1;
 
-        System.out.println("=================____PRODUCTDS____=====================");
-        // System.out.println(products);
-        System.out.println("================================================");
+        model.addAttribute("pageBack", pageB);
+        model.addAttribute("pageNext", pageN);
 
-
-        return "admin/departments";
+        return  this.showPaginations( model, true, "/admin/department" );
     }
-
-    /**
-     * 
-     * @param model
-     * @return
-     */
-    // @GetMapping("/admin/department")
-    // public String getDepartments( Model model, @RequestParam(defaultValue = "0")
-    // Integer page ){
-
-    // Pageable pageable = PageRequest.of( page, 1 );
-
-    // Page<Department> pageTable = departmentRepo.findAll( pageable );
-
-    // System.out.println( pageTable );
-
-    // model.addAttribute( "styleActiveClass", -1 );
-    // model.addAttribute( "department", pageTable);
-
-    // int pageB = 0;
-    // pageB = ( pageTable.hasPrevious() ) ? page - 1 : -1 ;
-
-    // int pageN = 0;
-    // pageN = ( pageTable.hasNext() ) ? page + 1: -1;
-
-    // model.addAttribute( "pageBack", pageB );
-    // model.addAttribute( "pageNext", pageN );
-
-    // this.showPaginations(model, true, "/admin/department");
-
-    // return "admin/departments";
-    // }
-
     private DepartmentController showPaginations(Model model, boolean pagination, String url) {
         model.addAttribute("pagination", pagination);
         model.addAttribute("paginationUri", url);
         return this;
     }
-
     /**
-     * 
+     * Show All Products
+     * @param model
+     * @param page
+     * @return
+     */
+    @GetMapping("/admin/department")
+    public String getDepartments(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
+        Page<Product> productList = productRepo.findAll( pageable );
+        this.productPageable( model, productList, page );
+        model.addAttribute("productList", productList);
+        return "admin/departments";
+    }
+    /**
+     * Show Products by Category
      * @param model
      * @return
      */
     @GetMapping("/admin/department/{id}")
-    public String getDepartmentsById(Model model, @PathVariable Long id) {
-        this.getDepartmentsList( model, id );
-        
-        // List<Product> products = productService.getProducts();
+    public String getDepartmentsById(Model model, @PathVariable Long id, @RequestParam(defaultValue = "0") Integer page) {
+        this.getDepartmentsList(model, id);
 
-        // System.out.println( products );
-        // List<Department> departmentsForProducts = departmentService.getDepartmentsById(id);
-        // model.addAttribute("department", departmentsForProducts);
-        // model.addAttribute("styleActiveClass", id);
+        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
+        Page<Product> productList = productRepo.findAllProductByDepartmentId( id, pageable );
+        this.productPageable( model, productList, page );
+        model.addAttribute("productList", productList);
         return "admin/departments";
     }
-    /**
-     * 
-     * @param model
-     * @return
-     */
-    // @GetMapping("/admin/departments/page={id}")
-    // public String getProductsByDepartment( Model model ){
-
-    // // model.addAttribute( "department", departmentService.getDepartments() );
-    // // model.addAttribute( "allProducts", productService.getProducts() );
-
-    // return "admin/departments";
-    // }
     /**
      * @POST (/admin/department)
      * @param department
@@ -153,5 +116,8 @@ public class DepartmentController extends CommonController {
 
         return "redirect:/admin";
     }
+    /**
+     * 
+     */
 
-}
+}// END

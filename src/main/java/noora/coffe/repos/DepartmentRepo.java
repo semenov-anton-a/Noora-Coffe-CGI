@@ -19,4 +19,8 @@ public interface DepartmentRepo extends JpaRepository<Department, Long> {
     Boolean existsByName( String name );
     List<Department> findAllById(Long id);
 
+
+    // List<Department> findAllProductsOrderById( Long id );
+    // List<Product> findAllProducts();
+
 }

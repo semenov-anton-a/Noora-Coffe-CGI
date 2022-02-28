@@ -40,27 +40,6 @@
             <div class="col-md-8">
                 <div class="row row-cols-1 row-cols-md-2 g-1">
 
-                    <th:block th:each="department: ${department}">
-                        <div class="col" th:each="prod: ${department.products}">
-                            <div class="card">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 th:text="${prod.name}">TITLE</h5>
-                                    <p class="card-text">DESCRIPTION</p>
-                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                        <a type="button" class="btn btn-sm btn-outline-danger me-1">
-                                            Remove<i class="fa fa-trash ms-1"></i>
-                                        </a>
-                                        <a type="button" th:href="|/admin/product/${prod.id}|"
-                                            class="btn btn-sm btn-outline-primary">
-                                            Details
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </th:block>
-                    
                     <!-- <th:block th:each="department: ${department}">
                         <div class="col" th:each="prod: ${department.products}">
                             <div class="card">
@@ -81,6 +60,27 @@
                             </div>
                         </div>
                     </th:block> -->
+                    
+                    <th:block th:each="prod: ${productList}">
+                        <div class="col">
+                            <div class="card">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 th:text="${prod.name}">TITLE</h5>
+                                    <p class="card-text">DESCRIPTION</p>
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <a type="button" class="btn btn-sm btn-outline-danger me-1">
+                                            Remove<i class="fa fa-trash ms-1"></i>
+                                        </a>
+                                        <a type="button" th:href="|/admin/product/${prod.id}|"
+                                            class="btn btn-sm btn-outline-primary">
+                                            Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
 
                 </div>
 

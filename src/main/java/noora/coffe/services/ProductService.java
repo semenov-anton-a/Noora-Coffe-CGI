@@ -57,7 +57,12 @@ public class ProductService {
      * @param departmentID
      */
     @Transactional
-    public void addNewProduct(Product product, Long departmentID) {
+    public void addNewProduct(
+        Product product, 
+        Long departmentID
+        // ,Long supplierID
+        // ,Long makerID
+    ){
         
         System.out.println("==========================");
         Department dep = departmentRepo.getById( departmentID );

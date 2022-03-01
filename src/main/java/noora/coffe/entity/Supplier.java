@@ -38,10 +38,9 @@ public class Supplier extends AbstractPersistable<Long>{
      String contact;
      String email;
 
-
-    //  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //  @JoinColumn(name = "supplier_id")
-    //  private List<Product> products;
+     @OneToMany( mappedBy="supplier", cascade=CascadeType.ALL, fetch = FetchType.EAGER )
+     private List<Product> products;
+     
 
 
 }

@@ -16,7 +16,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import noora.coffe.repos.DepartmentRepo;
+import noora.coffe.repos.SupplierRepo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.lang.Nullable;
@@ -25,9 +28,9 @@ import org.springframework.lang.Nullable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+// @AllArgsConstructor
 public class Product extends AbstractPersistable<Long> {
-
+    
     /**
      * Сущность товаров
      */
@@ -39,42 +42,31 @@ public class Product extends AbstractPersistable<Long> {
     // String description;
     // String image;
     // BigDecimal price;
+    
+    
+    
+    
     @ManyToOne
     private Department department;
     public Product setDepartment(Department dep) {
         this.department = dep;
         return this;
     }
+
+
+    @ManyToOne
+    private Supplier supplier;
+    public Product setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+        return this;
+    }
+
+
+    public Product( String name, Department dep ){
+        this.name = name;
+        this.setDepartment(dep);
+    };
     
-
-    // @Nullable
-    // @Transient
-    // private transient String category_tras = null;
-    
-    // @Nullable
-    // @Transient
-    // private transient String maker_tras = null;
-    
-    // @Nullable
-    // @Transient
-    // private transient String supplier_tras = null;
-
-
-    // public Product setTransientCategory(String str) {
-    //     this.category_tras = str;
-    //     return this;
-    // }
-    // public Product setTransientMaker(String str) {
-    //     this.maker_tras = str;
-    //     return this;
-    // }
-    // public Product setTransientSupplier(String str) {
-    //     this.supplier_tras = str;
-    //     return this;
-    // }
-
-
-    
-
+   
 
 }

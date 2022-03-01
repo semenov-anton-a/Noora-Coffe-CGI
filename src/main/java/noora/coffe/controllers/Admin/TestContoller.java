@@ -26,10 +26,25 @@ public class TestContoller{
 
     @GetMapping("/admin/test_console")
     public void testConsole(){
-
         System.out.println("========TEST Controller BEGIN===============");
 
+
+
+    // Product p = new Product( "0_TEST_2", departmentRepo.getById( 1L )  );
+
+
+        productRepo.save( p );
+
+        System.out.println( p );
+
+
+
+        System.out.println("========TEST Controller ENDs===============");
     }
+
+
+
+
 
 
 

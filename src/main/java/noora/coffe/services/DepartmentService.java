@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 
+
 @Service
 public class DepartmentService {
+
 
     @Autowired
     DepartmentRepo departmentRepo;
@@ -28,14 +30,8 @@ public class DepartmentService {
      * @return
      */
     @Transactional
-    public List<Department> getDepartments( Long id ) 
-    {
-        if( id == -1L )
-        { 
-            return departmentRepo.findAll(); 
-        }
-        
-        return departmentRepo.findAllById( id );
+    public List<Department> getDepartments( Long id )  {
+        return ( id == -1L ) ? departmentRepo.findAll() : departmentRepo.findAllById( id );
     }
 
     /**
@@ -65,4 +61,9 @@ public class DepartmentService {
         departmentRepo.deleteById( id );
         return true;
     }
+
+    public Department getById(Long id) {
+        return departmentRepo.getById(id);
+    }
+    
 }

@@ -55,24 +55,36 @@ public class ProductController extends CommonController{
     public String updateProduct(
             // @RequestParam Long id,
             Product product,
-            @RequestParam Long departmentID,
+            @RequestParam Long depid,
+
+
+            // FORM OPTION 
             @RequestParam String option
     ){
-        switch( option )
-        {
-            case "add" :
-                if (product.getName().equals("")) { return "redirect:/admin"; }
-                productService.addNewProduct(product, departmentID);
-                break;
-            case "update" : 
-                productService.updateProductDepartment( product.getId(), departmentID);  
-                break;
-            case "delete" :
-                productService.deleteById( product.getId() ); 
-                break;
-        }
 
+
+        System.out.println("========================");
+        System.out.println( product.getName() );
+        System.out.println( depid );
+        System.out.println("========================");
         return "redirect:/admin";
+
+        
+        // switch( option )
+        // {
+        //     case "add" :
+        //         if (product.getName().equals("")) { return "redirect:/admin"; }
+        //         productService.addNewProduct(product, departmentID);
+        //         break;
+        //     case "update" : 
+        //         productService.updateProductDepartment( product.getId(), departmentID);  
+        //         break;
+        //     case "delete" :
+        //         productService.deleteById( product.getId() ); 
+        //         break;
+        // }
+
+        // return "redirect:/admin";
     }
 
 }

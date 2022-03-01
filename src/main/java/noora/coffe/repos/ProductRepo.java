@@ -27,4 +27,5 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     // List<T> findAllProductByDepartmentId( @Param("id") Long id );
     // List<Product> findAllProductByDepartmentId( @Param("id") Long id);
 
+
 }

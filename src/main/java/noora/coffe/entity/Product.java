@@ -28,14 +28,14 @@ import org.springframework.lang.Nullable;
 @Getter
 @Setter
 @NoArgsConstructor
-// @AllArgsConstructor
+@AllArgsConstructor
 public class Product extends AbstractPersistable<Long> {
     
     /**
      * Сущность товаров
      */
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
 
     String name;
@@ -65,8 +65,12 @@ public class Product extends AbstractPersistable<Long> {
     public Product( String name, Department dep ){
         this.name = name;
         this.setDepartment(dep);
+    }
+
+
+    public Product(String string) {
+        this.name = string;        
     };
     
-   
 
 }

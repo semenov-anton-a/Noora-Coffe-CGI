@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,9 @@ public class ProductService {
 
     @Autowired
     DepartmentRepo departmentRepo;
+    
+    @Autowired
+    SupplierRepo supplierRepo;
 
     @Autowired
     ProductRepo productRepo;
@@ -105,6 +110,39 @@ public class ProductService {
      * @return
      */
     public List<Product> getProducts() { return productRepo.findAll(); }
+    public void save( Product product ) {
+
+        // if( product.getDepartment() == null ){
+        //     product.setDepartment( departmentRepo.getById(1L) );
+        // }
+        
+        // productRepo.save( product );
+
+        // if( product.getSupplier() == null ){
+        //     product.setSupplier( supplierRepo.getById(1L) );
+        // }
+
+        productRepo.save( product );
+        
+
+
+    }
+
+
+    /**
+     * Find All Products where Department is NULL
+     * @param pageable
+     * @return Page<Product>
+     */
+    public Page<Product> getProduct_without_department( Pageable pageable ) {
+        return productRepo.findAllProductByDepartmentId( null, pageable );
+    }
+    public Page<Product> getProduct_without_supplier( Pageable pageable ) {
+        return productRepo.findAllProductBySupplierId( null, pageable );
+    }
+    public Page<Product> getAll(Pageable pageable) {
+        return productRepo.findAll( pageable );
+    }
 
 
     // public List<Product> addEntityDependencies(

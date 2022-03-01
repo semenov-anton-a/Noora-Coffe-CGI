@@ -6,6 +6,7 @@
         <div class="row g-2">
             <!-- LIST -->
             <div class="col-md-4">
+
                 <div class="list-group">
                     <div class="list-group-item list-group-item-actio p-1">
                         <label class="list-group fs-4 text-muted text-center">Add Suppliers</label>
@@ -16,14 +17,24 @@
                             </button>
                         </div>
                     </div>
-                    <a href="/admin/suppliers" aria-current="true"
+                    <div></div>
+                    <a href="/admin/suppliers/all" aria-current="true"
                         th:classappend="${ styleActiveClass == -1 } ? 'active' :''"
                         class="list-group-item list-group-item-action">Show All</a>
 
-                    <a th:each="s: ${suplierList}" th:text="${s.name}"
-                        th:href="|/admin/suppliers/${s.id}|"
+                    <a href="/admin/suppliers" aria-current="true"
+                        th:classappend="${ styleActiveClass == 0 } ? 'active' :''"
+                        class="list-group-item list-group-item-action">No Supplier</a>
+
+                    <a th:each="s: ${suplierList}" th:href="|/admin/suppliers/${s.id}|"
                         th:classappend="${ styleActiveClass == s.id } ? 'active' :''"
-                        class="list-group-item list-group-item-action" role="button"></a>
+                        class="list-group-item list-group-item-action d-flex" role="button">
+                        <th:block th:utext="${s.name}"></th:block>
+                        <button type="button" class="btn-modal-error btn btn-sm btn-warning ms-auto"
+                            data-bs-toggle="modal" data-bs-target="#modal_error">
+                            Edit<i class="fa-solid fa-pen ms-1"></i>
+                        </button>
+                    </a>
                 </div>
             </div>
 
@@ -34,61 +45,60 @@
                         th:remove="tag" />
                     </fragment>
                 </div>
-
-
-
-
             </div>
         </div>
-         <!-- Pagination -->
-    <div class="mt-5">
-        <fragment th:include="admin/@frg/html/static :: pagination" th:remove="tag" />
-    </div>
+        <!-- Pagination -->
+        <div class="mt-5">
+            <fragment th:include="admin/@frg/html/static :: pagination" th:remove="tag" />
+        </div>
     </div>
     <fragment th:include="admin/@frg/html/footer :: footer" th:remove="tag" />
     <fragment th:include="admin/@frg/html/static :: javascript" th:remove="tag" />
+</div>
 
-    <!-- MODAL -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="/admin/suppliers" method="post">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+<fragment th:replace="admin/@frg/html/modals :: modal_error"></fragment>
+
+<!-- MODAL -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/admin/suppliers" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="input-group mb-3 input-group-sm">
+                        <input type="text" name="name" class="form-control" placeholder="Company name" aria-label=""
+                            aria-describedby="basic-addon2" />
                     </div>
-
-                    <div class="modal-body">
-
-                        <div class="input-group mb-3 input-group-sm">
-                            <input type="text" name="name" class="form-control"
-                                placeholder="Company name" aria-label="" aria-describedby="basic-addon2" />
-                        </div>
-                        <div class="input-group mb-3 input-group-sm">
-                            <input type="text" name="contact" class="form-control"
-                                placeholder="Contact name" aria-label="" aria-describedby="basic-addon2" />
-                        </div>
-                        <div class="input-group mb-3 input-group-sm">
-                            <input type="text" name="email" class="form-control" placeholder="Email"
-                                aria-label="" aria-describedby="basic-addon2" />
-                        </div>
+                    <div class="input-group mb-3 input-group-sm">
+                        <input type="text" name="contact" class="form-control" placeholder="Contact name" aria-label=""
+                            aria-describedby="basic-addon2" />
                     </div>
-
-                    <div class="modal-footer">
-                        <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger me-1">
-                            Close <i class="fa-solid fa-trash ms-1"></i></button>
-                        <button type="submit" class="btn btn-sm btn-outline-success">
-                            Add <i class="fa-solid fa-square-plus ms-1"></i>
+                    <div class="input-group mb-3 input-group-sm">
+                        <input type="text" name="email" class="form-control" placeholder="Email" aria-label=""
+                            aria-describedby="basic-addon2" />
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger me-1">
+                        Close <i class="fa-solid fa-trash ms-1"></i></button>
+                    <button type="submit" class="btn btn-sm btn-outline-success">
+                        Add <i class="fa-solid fa-square-plus ms-1"></i>
+                </div>
+            </form>
         </div>
     </div>
-    <!-- Auto Modal OPEN -->
-    <!-- <script>window.onload = function () { document.getElementById("modal-add-product").click(); };</script> -->
-    <!-- MODAL END -->
-    
 </div>
+<!-- Auto Modal OPEN -->
+<!-- <script>window.onload = function () { document.getElementById("modal-add-product").click(); };</script> -->
+<!-- MODAL END -->
+
 
 </body>
 

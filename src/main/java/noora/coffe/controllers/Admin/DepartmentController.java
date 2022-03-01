@@ -56,9 +56,27 @@ public class DepartmentController extends CommonController {
      */
     @GetMapping("/admin/department")
     public String getDepartments(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        this.getDepartmentsList(model, 0L);
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
-        Page<Product> productList = productRepo.findAll( pageable );
+        Page<Product> productList = productService.getProduct_without_department( pageable );
+        
         super.productPageable(model, productList, page, "department");
+        model.addAttribute("productList", productList);
+        return "admin/departments";
+    }
+    /**
+     * Show All Products
+     * @param model
+     * @param page
+     * @return
+     */
+    @GetMapping("/admin/department/all")
+    public String getDepartmentsAll(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        this.getDepartmentsList(model, -1L);
+        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
+        Page<Product> productList = productService.getAll( pageable );
+        
+        super.productPageable(model, productList, page, "department/all");
         model.addAttribute("productList", productList);
         return "admin/departments";
     }

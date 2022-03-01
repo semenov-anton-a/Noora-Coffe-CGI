@@ -10,42 +10,34 @@ import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @RestController
-public class TestContoller{
-    
+public class TestContoller {
+
     @Autowired
     ProductRepo productRepo;
-    
+
     @Autowired
     DepartmentRepo departmentRepo;
-    
+
     @Autowired
     DepartmentService departmentService;
-    
+
     @Autowired
     ProductService productService;
 
     @GetMapping("/admin/test_console")
-    public void testConsole(){
+    public void testConsole() {
         System.out.println("========TEST Controller BEGIN===============");
 
+        // Product p_9 = new Product("000--TEST-000");
+        // productService.save(p_9);
 
-
-    // Product p = new Product( "0_TEST_2", departmentRepo.getById( 1L )  );
-
+        // Product p = new Product( "0_TEST_2", departmentRepo.getById( 1L ) );
 
         // productRepo.save( p );
 
         // System.out.println( p );
 
-
-
         System.out.println("========TEST Controller ENDs===============");
     }
-
-
-
-
-
-
 
 }

@@ -27,9 +27,13 @@
                                 .startsWith('/admin/department') ? 'active':''}"
                         
                         class="list-group-item list-group-item-action">Show All</a> -->
-                <a href="/admin/department" aria-current="true"
+                <a href="/admin/department/all" aria-current="true"
                     th:classappend="${ styleActiveClass == -1 } ? 'active' :''"
                     class="list-group-item list-group-item-action">Show All</a>
+                    
+                <a href="/admin/department" aria-current="true"
+                    th:classappend="${ styleActiveClass == 0 } ? 'active' :''"
+                    class="list-group-item list-group-item-action">No Category</a>
 
                 <a th:each="department: ${departmentsList}" th:text="${department.name}"
                     th:href="|/admin/department/${department.id}|"

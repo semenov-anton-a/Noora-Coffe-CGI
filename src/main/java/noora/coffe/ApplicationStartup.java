@@ -13,113 +13,142 @@ import org.springframework.stereotype.Component;
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 import noora.coffe.services.*;
-/**  */
 
+/**  */
 
 @Component
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 
     // DepartmentService
-    @Autowired DepartmentService departmentService;
-    @Autowired DepartmentRepo departmentRepo;
+    @Autowired
+    DepartmentService departmentService;
+    @Autowired
+    DepartmentRepo departmentRepo;
 
     // ProductService
-    @Autowired ProductService productService;
-    @Autowired ProductRepo productRepo;
+    @Autowired
+    ProductService productService;
+    @Autowired
+    ProductRepo productRepo;
+    @Autowired
+    SupplierRepo supplierRepo;
+    @Autowired
+    SupplierService supplierService;
 
     /** -------------------------- */
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
-        // this.makeFakeDepartments().makeFakeProduct();
+        this
+                .makeFakeDepartments()
+                .makeFakeSuppliers()
+                .makeFakeProduct();
     }
 
     @Transactional
-    private ApplicationStartup makeFakeDepartments() 
-    {    
-        String noCategory = "No Category";
+    private ApplicationStartup makeFakeDepartments() {
+        // String noCategory = "No Category";
         String kahvilaitteet = "Kahvilaitteet";
         String kulutustuoteet = "Kulutustuoteet";
-        
-        if( ! departmentRepo.existsByName(noCategory) ){
-            System.out.println("INSERT " + noCategory);
-            departmentRepo.save( new Department(noCategory) );
-        }
 
-        if( ! departmentRepo.existsByName(kahvilaitteet) ){
+        // if (!departmentRepo.existsByName(noCategory)) {
+        //     System.out.println("INSERT " + noCategory);
+        //     departmentRepo.save(new Department(noCategory));
+        // }
+
+        if (!departmentRepo.existsByName(kahvilaitteet)) {
             System.out.println("INSERT " + kahvilaitteet);
-            departmentRepo.save( new Department( kahvilaitteet ) );
+            departmentRepo.save(new Department(kahvilaitteet));
         }
 
-        if( ! departmentRepo.existsByName(kulutustuoteet) ){
+        if (!departmentRepo.existsByName(kulutustuoteet)) {
             System.out.println("INSERT " + kulutustuoteet);
-            departmentRepo.save( new Department(kulutustuoteet) );
+            departmentRepo.save(new Department(kulutustuoteet));
         }
 
         return this;
     }
-
 
     @Transactional
-    private ApplicationStartup makeFakeProduct(){
+    private ApplicationStartup makeFakeProduct() {
 
-        if( productRepo.findAll().size() != 0 ){ return this; }
-        
-        // System.out.println( "==================" );
-        // System.out.println(" INSERT PRODUCS ................");
+        if (productRepo.findAll().size() != 0) {
+            return this;
+        }
 
-        // Product p_0 = new Product( null, "0_product_0", null, null  );
-        // productService.addNewProduct( p_0 , 1L );
-        // // productService.addNew( p_0 , 1L );
+        System.out.println("==================");
+        System.out.println(" INSERT PRODUCS ................");
 
+        Product p_0 = new Product(
+                "0_product_0", null );
+        productService.save(p_0);
 
+        Product p_1 = new Product(
+                "1_product_1", null );
+        productService.save(p_1);
 
-        // // 
-        // Product p_1 = new Product( null, "1_product_1", null, null  );
-        // productService.addNewProduct( p_1 , 1L );
-        
+        Product p_2 = new Product(
+                "2_product_2",
+                departmentRepo.getById(1L));
+        productService.save(p_2);
 
-        // // 
-        // Product p_2 = new Product( null, "2_product_2", null, null  );
-        // productService.addNewProduct( p_2 , 2L );
+        Product p_3 = new Product(
+                "3_product_3",
+                departmentRepo.getById(1L));
+        productService.save(p_3);
 
+        Product p_4 = new Product(
+                "4_product_4",
+                departmentRepo.getById(2L));
+        productService.save(p_4);
 
-        // // 
-        // Product p_3 = new Product( null, "3_product_3", null, null  );
-        // productService.addNewProduct( p_3 , 3L );
+        Product p_5 = new Product(
+                "5_product_5",
+                departmentRepo.getById(2L));
+        productService.save(p_5);
 
+        Product p_6 = new Product(
+                "6_product_6",
+                null);
+        productService.save(p_6);
 
-        // // 
-        // Product p_4 = new Product( null, "4_product_4", null, null  );
-        // productService.addNewProduct( p_4 , 1L );
-        
-        // // 
-        // Product p_5 = new Product( null, "5_product_5", null, null  );
-        // productService.addNewProduct( p_5 , 2L );
-        
+        Product p_7 = new Product(
+                "7_product_7",
+                departmentRepo.getById(2L));
+        productService.save(p_7);
 
-        // // 
-        // Product p_6 = new Product( null, "6_product_6", null, null  );
-        // productService.addNewProduct( p_6 , 3L );
-        
+        Product p_8 = new Product(
+                "8_product_8",
+                departmentRepo.getById(2L));
+        productService.save(p_8);
 
-        // // 
-        // Product p_7 = new Product( null, "7_product_7", null, null   );
-        // productService.addNewProduct( p_7 , 1L );
-        
-
-        // // 
-        // Product p_8 = new Product( null, "8_product_8", null, null   );
-        // productService.addNewProduct( p_8 , 2L );
-        
-
-        // // 
-        // Product p_9 = new Product( null, "9_product_9", null, null   );
-        // productService.addNewProduct( p_9 , 3L );
-        
+        Product p_9 = new Product(
+                "9_product_9",
+                departmentRepo.getById(1L));
+        productService.save(p_9);
         return this;
     }
 
+    @Transactional
+    private ApplicationStartup makeFakeSuppliers() {
+
+        if (supplierRepo.findAll().size() != 0) {
+            return this;
+        }
+
+        // Supplier no_supplier = new Supplier("No Supplier", null, null, null);
+        Supplier s_market = new Supplier("S-MARKET", "Jussi Pekkala", "jussi@s-market.fi", null);
+        Supplier k_market = new Supplier("K-MARKET", "Matti Holstrom", "matti@k-market.fi", null);
+        Supplier prisma = new Supplier("PRISMA", "Henna Suomalainen", "henna@prisma.fi", null);
+
+        // supplierService.addNewSupplier(no_supplier);
+
+        supplierService.addNewSupplier(s_market);
+        supplierService.addNewSupplier(k_market);
+        supplierService.addNewSupplier(prisma);
+
+        return this;
+    }
 
 }

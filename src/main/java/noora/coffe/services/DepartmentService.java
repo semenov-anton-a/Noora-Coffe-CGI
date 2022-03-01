@@ -30,7 +30,7 @@ public class DepartmentService {
      * @return
      */
     @Transactional
-    public List<Department> getDepartments( Long id )  {
+    public List<Department> getList( Long id )  {
         return ( id == -1L ) ? departmentRepo.findAll() : departmentRepo.findAllById( id );
     }
 
@@ -40,7 +40,7 @@ public class DepartmentService {
      * @return
      */
     @Transactional
-    public boolean addNewDepartment( String name ) {   
+    public boolean add( String name ) {   
         // Not Empty
         if ( name.equals("") ) { return false; }
         

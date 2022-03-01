@@ -40,7 +40,7 @@ public class DepartmentController extends CommonController {
      */
     @ModelAttribute("departmentsList")
     private List<Department> getDepartmentsList(Model model, @RequestParam(defaultValue = "-1") Long Id) {
-        List<Department> departments = departmentService.getDepartments(Id);
+        List<Department> departments = departmentService.getList(Id);
         model.addAttribute("department", departments);
         model.addAttribute("styleActiveClass", Id);
         return departments;
@@ -106,7 +106,7 @@ public class DepartmentController extends CommonController {
         path = "/admin/department/add", 
         consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } )
     public String addNewDepartment( String name) {
-        departmentService.addNewDepartment(name);
+        departmentService.add(name);
         return "redirect:/admin/department";
     }
     /**

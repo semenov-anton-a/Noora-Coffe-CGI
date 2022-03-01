@@ -44,7 +44,7 @@ public class SupplierController extends CommonController {
      */
     @ModelAttribute("suplierList")
     private List<Supplier> getSupplierList(Model model, @RequestParam(defaultValue = "-1") Long Id) {
-        List<Supplier> sup = supplierService.getSupplierList(Id);
+        List<Supplier> sup = supplierService.getList(Id);
         model.addAttribute("sup", sup);
         model.addAttribute("styleActiveClass", Id);
         return sup;

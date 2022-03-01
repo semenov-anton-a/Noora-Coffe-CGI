@@ -1,8 +1,6 @@
 package noora.coffe.controllers.Admin;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import noora.coffe.entity.*;
@@ -51,24 +47,7 @@ public class DepartmentController extends CommonController {
     }
 
 
-    private int itemsCoutOfPage = 4;
-    private DepartmentController productPageable(Model model,  Page<Product> productList, Integer pageNum  ){
-        int pageB = 0;
-        pageB = ( productList.hasPrevious() ) ? pageNum - 1 : -1;
-
-        int pageN = 0;
-        pageN = (productList.hasNext() ) ? pageNum + 1 : -1;
-
-        model.addAttribute("pageBack", pageB);
-        model.addAttribute("pageNext", pageN);
-
-        return  this.showPaginations( model, true, "/admin/department" );
-    }
-    private DepartmentController showPaginations(Model model, boolean pagination, String url) {
-        model.addAttribute("pagination", pagination);
-        model.addAttribute("paginationUri", url);
-        return this;
-    }
+    
     /**
      * Show All Products
      * @param model
@@ -79,7 +58,7 @@ public class DepartmentController extends CommonController {
     public String getDepartments(Model model, @RequestParam(defaultValue = "0") Integer page) {
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productRepo.findAll( pageable );
-        this.productPageable( model, productList, page );
+        super.productPageable(model, productList, page, "department");
         model.addAttribute("productList", productList);
         return "admin/departments";
     }
@@ -94,7 +73,9 @@ public class DepartmentController extends CommonController {
 
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productRepo.findAllProductByDepartmentId( id, pageable );
-        this.productPageable( model, productList, page );
+        
+        super.productPageable(model, productList, page, "department");
+        
         model.addAttribute("productList", productList);
         return "admin/departments";
     }

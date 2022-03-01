@@ -33,9 +33,9 @@ public class TestContoller{
     // Product p = new Product( "0_TEST_2", departmentRepo.getById( 1L )  );
 
 
-        productRepo.save( p );
+        // productRepo.save( p );
 
-        System.out.println( p );
+        // System.out.println( p );
 
 
 

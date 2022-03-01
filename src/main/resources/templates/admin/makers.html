@@ -6,84 +6,97 @@
         <div class="row g-2">
             <!-- LIST -->
             <div class="col-md-4">
+
                 <div class="list-group">
                     <div class="list-group-item list-group-item-actio p-1">
-                        <label class="list-group fs-4 text-muted text-center">Add Makers</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" 
-                                placeholder="Add Makers"
-                                aria-describedby="button-addon2">
-                            <!-- <button type="button" class="btn btn-outline-secondary me-1">
-                                    Add<i class="fa-solid fa-square-plus ms-1"></i></button> -->
-                            <button type="button" class="btn btn-primary me-1">
-                                    Add<i class="fa-solid fa-square-plus ms-1"></i></button>
+                        <label class="list-group fs-4 text-muted text-center">Add Maker</label>
+                        <div class="input-group my-3">
+                            <button type="button" id="modal-add-product" class="btn btn-sm btn-primary ms-auto"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add
+                                Maker <i class="fa-solid fa-square-plus ms-1"></i>
+                            </button>
                         </div>
                     </div>
+                    <div></div>
+                    <a href="/admin/makers/all" aria-current="true"
+                        th:classappend="${ styleActiveClass == -1 } ? 'active' :''"
+                        class="list-group-item list-group-item-action">Show All</a>
+
                     <a href="/admin/makers" aria-current="true"
-                        class="list-group-item list-group-item-action active">
-                        Show All
+                        th:classappend="${ styleActiveClass == 0 } ? 'active' :''"
+                        class="list-group-item list-group-item-action">No Supplier</a>
+
+                    <a th:each="s: ${suplierList}" th:href="|/admin/makers/${s.id}|"
+                        th:classappend="${ styleActiveClass == s.id } ? 'active' :''"
+                        class="list-group-item list-group-item-action d-flex" role="button">
+                        <th:block th:utext="${s.name}"></th:block>
+                        <button type="button" class="btn-modal-error btn btn-sm btn-warning ms-auto"
+                            data-bs-toggle="modal" data-bs-target="#modal_error">
+                            Edit<i class="fa-solid fa-pen ms-1"></i>
+                        </button>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                    <a class="list-group-item list-group-item-action disabled">A disabled link item</a>
                 </div>
             </div>
 
             <!-- PRODUCTS LIST -->
             <div class="col-md-8">
                 <div class="row row-cols-1 row-cols-md-2 g-1">
-                    <div class="col">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural
-                                    lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <fragment th:include="~{admin/@frg/products :: products(productList=${productList})}"
+                        th:remove="tag" />
+                    </fragment>
                 </div>
             </div>
+        </div>
+        <!-- Pagination -->
+        <div class="mt-5">
+            <fragment th:include="admin/@frg/html/static :: pagination" th:remove="tag" />
+        </div>
+    </div>
+    <fragment th:include="admin/@frg/html/footer :: footer" th:remove="tag" />
+    <fragment th:include="admin/@frg/html/static :: javascript" th:remove="tag" />
+</div>
 
 
+<fragment th:replace="admin/@frg/html/modals :: modal_error"></fragment>
 
+<!-- MODAL -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/admin/makers" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Maker</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
+                <div class="modal-body">
+
+                    <div class="input-group mb-3 input-group-sm">
+                        <input type="text" name="name" class="form-control" placeholder="Company name" aria-label=""
+                            aria-describedby="basic-addon2" />
+                    </div>
+                    <div class="input-group mb-3 input-group-sm">
+                        <input type="text" name="url" class="form-control" placeholder="Web site" aria-label=""
+                            aria-describedby="basic-addon2" />
+                    </div>
+                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger me-1">
+                        Close <i class="fa-solid fa-trash ms-1"></i></button>
+                    <button type="submit" class="btn btn-sm btn-outline-success">
+                        Add <i class="fa-solid fa-square-plus ms-1"></i>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<fragment th:include="admin/@frg/html/footer :: footer" th:remove="tag" />
-<fragment th:include="admin/@frg/html/static :: javascript" th:remove="tag" />
+<!-- Auto Modal OPEN -->
+<!-- <script>window.onload = function () { document.getElementById("modal-add-product").click(); };</script> -->
+<!-- MODAL END -->
+
+
 </body>
 
 </html>

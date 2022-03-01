@@ -62,6 +62,14 @@ public class Product extends AbstractPersistable<Long> {
     }
 
 
+    @ManyToOne
+    private Maker maker;
+    public Product setMaker(Maker supplier) {
+        this.maker = maker;
+        return this;
+    }
+
+
     public Product( String name, Department dep ){
         this.name = name;
         this.setDepartment(dep);

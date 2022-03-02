@@ -12,7 +12,7 @@
                         <label class="list-group fs-4 text-muted text-center">Add Maker</label>
                         <div class="input-group my-3">
                             <button type="button" id="modal-add-product" class="btn btn-sm btn-primary ms-auto"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add
+                                data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@mdo">Add
                                 Maker <i class="fa-solid fa-square-plus ms-1"></i>
                             </button>
                         </div>
@@ -24,15 +24,16 @@
 
                     <a href="/admin/makers" aria-current="true"
                         th:classappend="${ styleActiveClass == 0 } ? 'active' :''"
-                        class="list-group-item list-group-item-action">No Supplier</a>
+                        class="list-group-item list-group-item-action">No Makers</a>
 
-                    <a th:each="s: ${suplierList}" th:href="|/admin/makers/${s.id}|"
+                    <a th:each="s: ${makerList}" th:href="|/admin/makers/${s.id}|"
                         th:classappend="${ styleActiveClass == s.id } ? 'active' :''"
                         class="list-group-item list-group-item-action d-flex" role="button">
                         <th:block th:utext="${s.name}"></th:block>
-                        <button type="button" class="btn-modal-error btn btn-sm btn-warning ms-auto"
-                            data-bs-toggle="modal" data-bs-target="#modal_error">
-                            Edit<i class="fa-solid fa-pen ms-1"></i>
+                        <button type="button" th:data-bs-data='|{"name":"${s.name}","url":"${s.url}","id":"${s.id}"}|'
+                            class="btn-modal-error btn btn-sm btn-warning ms-auto" data-bs-toggle="modal"
+                            data-bs-target="#modal">
+                            Details<i class="fa-solid fa-pen ms-1"></i>
                         </button>
                     </a>
                 </div>
@@ -57,10 +58,9 @@
 </div>
 
 
-<fragment th:replace="admin/@frg/html/modals :: modal_error"></fragment>
 
 <!-- MODAL -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="/admin/makers" method="post">
@@ -72,6 +72,7 @@
                 <div class="modal-body">
 
                     <div class="input-group mb-3 input-group-sm">
+                        <input type="hidden" name="id" value="">
                         <input type="text" name="name" class="form-control" placeholder="Company name" aria-label=""
                             aria-describedby="basic-addon2" />
                     </div>
@@ -79,12 +80,12 @@
                         <input type="text" name="url" class="form-control" placeholder="Web site" aria-label=""
                             aria-describedby="basic-addon2" />
                     </div>
-                    
+
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger me-1">
-                        Close <i class="fa-solid fa-trash ms-1"></i></button>
+                        Close <i class="fa-solid fa-close ms-1"></i></button>
                     <button type="submit" class="btn btn-sm btn-outline-success">
                         Add <i class="fa-solid fa-square-plus ms-1"></i>
                 </div>
@@ -92,10 +93,88 @@
         </div>
     </div>
 </div>
+<script>
+    document.querySelectorAll('a > button[data-bs-target="#modal"]')
+        .forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault();
+                return false;
+            })
+        });
+
+        var modalUpdate = document.getElementById('modal');
+        modalUpdate.addEventListener('show.bs.modal', function (event) {
+            let button = event.relatedTarget;
+            let jsonData = JSON.parse( button.getAttribute('data-bs-data') );
+            if( jsonData )
+            {
+                this.querySelector('.modal-title').textContent  = "Details : " + jsonData.name;
+                this.querySelector('input[name=id]').value      = jsonData.id; 
+                this.querySelector('input[name=name]').value    = jsonData.name; 
+                this.querySelector('input[name=url]').value     = jsonData.url; 
+                this.querySelector('button[type=submit]').textContent = "Update";
+                let form = this.querySelector("form").action = "/admin/makers/update/" + jsonData.id;
+            }
+        });
+</script>
+
+
 <!-- Auto Modal OPEN -->
 <!-- <script>window.onload = function () { document.getElementById("modal-add-product").click(); };</script> -->
 <!-- MODAL END -->
 
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal_test"
+    data-bs-whatever="@mdo">Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal_test"
+    data-bs-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal_test"
+    data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+<div class="modal fade" id="exampleModal_test" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var exampleModal = document.getElementById('exampleModal_test')
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var recipient = button.getAttribute('data-bs-whatever')
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        var modalTitle = exampleModal.querySelector('.modal-title')
+        var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+        modalTitle.textContent = 'New message to ' + recipient
+        modalBodyInput.value = recipient
+    })
+</script> -->
 
 </body>
 

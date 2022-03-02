@@ -1,123 +1,140 @@
-// package noora.coffe.controllers.Admin;
+package noora.coffe.controllers.Admin;
 
-// import java.util.List;
+import java.util.List;
 
-// import org.springframework.http.MediaType;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.data.domain.Page;
-// import org.springframework.data.domain.PageRequest;
-// import org.springframework.data.domain.Pageable;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.ModelAttribute;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-// import noora.coffe.entity.*;
-// import noora.coffe.repos.*;
-// import noora.coffe.services.*;
+import noora.coffe.entity.*;
+import noora.coffe.repos.*;
+import noora.coffe.services.*;
 
-// @Controller
-// public class MakerController extends CommonController {
+@Controller
+public class MakerController extends CommonController {
 
-//     @Autowired
-//     DepartmentRepo departmentRepo;
+    @Autowired
+    DepartmentRepo departmentRepo;
 
-//     @Autowired
-//     ProductRepo productRepo;
+    @Autowired
+    ProductRepo productRepo;
 
-//     @Autowired
-//     DepartmentService departmentService;
+    @Autowired
+    DepartmentService departmentService;
     
-//     @Autowired
-//     SupplierService supplierService;
+    @Autowired
+    SupplierService supplierService;
 
-//     @Autowired
-//     ProductService productService;
+    @Autowired
+    ProductService productService;
 
-//     @Autowired
-//     MakerService makerService;
+    @Autowired
+    MakerRepo makerRepo;
 
-//     /**
-//      * 
-//      * @param model
-//      * @return
-//      */
-//     @ModelAttribute("suplierList")
-//     private List<Supplier> getSupplierList(Model model, @RequestParam(defaultValue = "-1") Long Id) {
-//         List<Supplier> sup = supplierService.getSupplierList(Id);
-//         model.addAttribute("sup", sup);
-//         model.addAttribute("styleActiveClass", Id);
-//         return sup;
-//     }
-//     /**
-//      * Show All Products
-//      * @param model
-//      * @param page
-//      * @return
-//      */
-//     @GetMapping("/admin/suppliers")
-//     public String getSuppliers(Model model, @RequestParam(defaultValue = "0") Integer page) {
-//         this.getSupplierList(model, 0L);
-//         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
-//         Page<Product> productList = productService.getProduct_without_supplier( pageable );
+    @Autowired
+    MakerService makerService;
+
+    /**
+     * 
+     * @param model
+     * @return
+     */
+    @ModelAttribute("makerList")
+    private List<Maker> getMakerList(Model model, @RequestParam(defaultValue = "-1") Long Id) {
+        List<Maker> sup = makerService.getList(Id);
+        model.addAttribute("sup", sup);
+        model.addAttribute("styleActiveClass", Id);
+        return sup;
+    }
+    /**
+     * Show All Products
+     * @param model
+     * @param page
+     * @return
+     */
+    @GetMapping("/admin/makers")
+    public String getMakers(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        this.getMakerList( model, 0L);
+        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
+        Page<Product> productList = productService.getProduct_without_maker( pageable );
         
-//         super.productPageable(model, productList, page, "suppliers");
-//         model.addAttribute("productList", productList);
-//         return "admin/suppliers";
-//     }
-//     /**
-//      * Show All Products
-//      * @param model
-//      * @param page
-//      * @return
-//      */
-//     @GetMapping("/admin/suppliers/all")
-//     public String getSupplierAll(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        super.productPageable(model, productList, page, "makers");
+        model.addAttribute("productList", productList);
+        return "admin/makers";
+    }
+    /**
+     * Show All Products
+     * @param model
+     * @param page
+     * @return
+     */
+    @GetMapping("/admin/makers/all")
+    public String getSupplierAll(Model model, @RequestParam(defaultValue = "0") Integer page) {
         
-//         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
-//         Page<Product> productList = productService.getAll( pageable );
+        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
+        Page<Product> productList = productService.getAll( pageable );
         
-//         super.productPageable(model, productList, page, "suppliers/all");
-//         model.addAttribute("productList", productList);
-//         return "admin/suppliers";
-//     }
-//     /**
-//      * Show Products by Category
-//      * @param model
-//      * @return
-//      */
-//     @GetMapping("/admin/suppliers/{id}")
-//     public String getDepartmentsById( Model model, @PathVariable Long id, @RequestParam(defaultValue = "0") Integer page ) {
-//         this.getSupplierList(model, id);
+        super.productPageable(model, productList, page, "makers/all");
+        model.addAttribute("productList", productList);
+        return "admin/makers";
+    }
+    /**
+     * Show Products by Category
+     * @param model
+     * @return
+     */
+    @GetMapping("/admin/makers/{id}")
+    public String getMakersById( Model model, @PathVariable Long id, @RequestParam(defaultValue = "0") Integer page ) {
+        this.getMakerList(model, id);
 
-//         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
-//         Page<Product> productList = productRepo.findAllProductBySupplierId( id, pageable );
-//         super.productPageable( model, productList, page,  "suppliers");
-//         model.addAttribute("productList", productList);
-//         return "admin/suppliers";
-//     }
-//     /**
-//      * @POST (/admin/suppliers)
-//      * @param department
-//      * @return
-//      */
-//     @PostMapping( path = "/admin/suppliers",
-//     consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } ) 
-//     public String addNewSupplier(
-//             @RequestParam String name, 
-//             @RequestParam String contact,  
-//             @RequestParam String email,  
-//             String option 
-//     ){
+        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
+        Page<Product> productList = productRepo.findAllProductBySupplierId( id, pageable );
+        super.productPageable( model, productList, page,  "makers");
+        model.addAttribute("productList", productList);
+        return "admin/makers";
+    }
 
-//         supplierService.addNewSupplier( new Supplier( name, contact, email, null ) );
-//         return "redirect:/admin/suppliers";
-//     }
-//     // /**
-//     //  * 
-//     //  */
+    /**
+     * @POST (/admin/suppliers)
+     * @param department
+     * @return
+     */
+    @PostMapping( path = "/admin/makers",
+    consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } ) 
+    public String addNewMaker(
+            @RequestParam String name, 
+            @RequestParam String url,  
+            String option 
+    ){
 
-// }// END
+        makerService.add( new Maker( null, name, url ) );
+        return "redirect:/admin/makers";
+    }
+
+    /**
+     * @POST (/admin/suppliers)
+     * @param department
+     * @return
+     */
+    @PostMapping( path = "/admin/makers/update/{id}",
+    consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } ) 
+    public String uodateMaker(Maker maker){
+
+
+        makerService.update( maker );
+        return "redirect:/admin/makers";
+    }
+    // /**
+    //  * 
+    //  */
+
+}// END

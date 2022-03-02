@@ -20,20 +20,22 @@ public class MakerService {
     @Autowired
     SupplierRepo supplierRepo;
     
-
+    @Autowired
+    MakerRepo makerRepo;
     
     /**
      * 
      * @param supplier
      * @return
      */
-    public boolean add(Supplier supplier) {
+    public boolean add(Maker maker) {
         // TODO VALIDATE 
-        // if ( supplier.getName().equals("") ) { return false; }
-        // if ( supplier.getContact().equals("") ) { return false; }
-        // if ( supplier.validEmail(supplier.getEmail()) ) { return false; }
-        supplier.getName().trim();
-        supplierRepo.save( supplier );
+        if ( maker.getName().equals("") ) { return false; }
+        if ( maker.getUrl().equals("") ) { return false; }
+        
+        maker.getName().trim();
+        
+        makerRepo.save( maker );
         return true;
     }
     /**
@@ -42,8 +44,8 @@ public class MakerService {
      * @return
      */
     @Transactional
-    public List<Supplier> getList( Long id )  {
-        return ( id == -1L ) ? supplierRepo.findAll() : supplierRepo.findAllById( id );
+    public List<Maker> getList( Long id )  {
+        return ( id == -1L ) ? makerRepo.findAll() : makerRepo.findAllById( id );
     }
  
     /**
@@ -55,6 +57,9 @@ public class MakerService {
         if( supplierRepo.findById(id) != null ){ return false; }
         supplierRepo.deleteById( id );
         return true;
+    }
+    public void update(Maker maker) {
+        makerRepo.save( maker );
     }
     
 

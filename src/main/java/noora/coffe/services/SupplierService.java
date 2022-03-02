@@ -27,10 +27,10 @@ public class SupplierService {
      * @param supplier
      * @return
      */
-    public boolean addNewSupplier(Supplier supplier) {
+    public boolean add(Supplier supplier) {
         // TODO VALIDATE 
-        // if ( supplier.getName().equals("") ) { return false; }
-        // if ( supplier.getContact().equals("") ) { return false; }
+        if ( supplier.getName().equals("") ) { return false; }
+        if ( supplier.getContact().equals("") ) { return false; }
         // if ( supplier.validEmail(supplier.getEmail()) ) { return false; }
         supplier.getName().trim();
         supplierRepo.save( supplier );
@@ -46,29 +46,6 @@ public class SupplierService {
         return ( id == -1L ) ? supplierRepo.findAll() : supplierRepo.findAllById( id );
     }
     /**
-     * 
-     * @param name
-     * @return
-     */
-    @Transactional
-    public boolean add( String name ) {   
-
-        System.out.println("========================");
-        System.out.println("=========NOT READY EAT========");
-        System.out.println("========================");
-
-        return false;
-        // // Not Empty
-        // if ( name.equals("") ) { return false; }
-        
-        // // Check Exist same name in a DB
-        // if( supplierRepo.findByName(name) != null ){ return false; }
-        
-        // // Save to DB
-        // supplierRepo.save( new Supplier( name.trim(), name, name, null ) );
-        // return true;
-    }
-    /**
      * Remove cascade 
      * @param department
      */
@@ -77,6 +54,9 @@ public class SupplierService {
         if( supplierRepo.findById(id) != null ){ return false; }
         supplierRepo.deleteById( id );
         return true;
+    }
+    public void update(Supplier s) {
+        supplierRepo.save( s );
     }
     
 

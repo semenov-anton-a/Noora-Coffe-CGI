@@ -128,8 +128,6 @@ public class MakerController extends CommonController {
     @PostMapping( path = "/admin/makers/update/{id}",
     consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } ) 
     public String uodateMaker(Maker maker){
-
-
         makerService.update( maker );
         return "redirect:/admin/makers";
     }

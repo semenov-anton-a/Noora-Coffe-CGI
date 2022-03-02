@@ -110,7 +110,20 @@ public class SupplierController extends CommonController {
             String option 
     ){
 
-        supplierService.addNewSupplier( new Supplier( name, contact, email, null ) );
+        supplierService.add( new Supplier( name, contact, email, null ) );
+        return "redirect:/admin/suppliers";
+    }
+
+
+    /**
+     * @POST (/admin/suppliers)
+     * @param department
+     * @return
+     */
+    @PostMapping( path = "/admin/suppliers/update/{id}",
+    consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE } ) 
+    public String uodateSuppliers(Supplier s){
+        supplierService.update( s );
         return "redirect:/admin/suppliers";
     }
     // /**

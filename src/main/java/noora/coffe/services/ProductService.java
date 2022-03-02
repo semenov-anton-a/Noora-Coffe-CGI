@@ -97,36 +97,14 @@ public class ProductService {
      */
     public void deleteById(Long id) { productRepo.deleteById(id); }
 
-
-    public void addEntityDependencies( List data ){
-
-        System.out.println( data.get(1) );
-
-    }
-
-
     /**
      * GET ALL Products
      * @return
      */
     public List<Product> getProducts() { return productRepo.findAll(); }
-    public void save( Product product ) {
+    
 
-        // if( product.getDepartment() == null ){
-        //     product.setDepartment( departmentRepo.getById(1L) );
-        // }
-        
-        // productRepo.save( product );
-
-        // if( product.getSupplier() == null ){
-        //     product.setSupplier( supplierRepo.getById(1L) );
-        // }
-
-        productRepo.save( product );
-        
-
-
-    }
+    
 
 
     /**
@@ -145,6 +123,15 @@ public class ProductService {
     }
     public Page<Product> getAll(Pageable pageable) {
         return productRepo.findAll( pageable );
+    }
+
+
+    /**
+     * SAVE 
+     * @param product
+     */
+    public void addProduct(Product product) {
+        productRepo.save(product);
     }
 
 

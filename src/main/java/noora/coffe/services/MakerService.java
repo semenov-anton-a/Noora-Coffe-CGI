@@ -47,6 +47,7 @@ public class MakerService {
     public List<Maker> getList( Long id )  {
         return ( id == -1L ) ? makerRepo.findAll() : makerRepo.findAllById( id );
     }
+    public List<Maker> getList()  {return this.getList(-1L);}
  
     /**
      * Remove cascade 

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import noora.coffe.CoffeApplication;
 import noora.coffe.entity.Product;
 
 
@@ -15,6 +16,8 @@ public class CommonController {
     @ModelAttribute("browserTitle")
     public String browserTitle(){ return  new String("Noora Coffe | Admin Page"); }
 
+    @ModelAttribute("appversion")
+    public String appVersion(){ return CoffeApplication.getAppVersion(); }
 
 
 

@@ -33,6 +33,7 @@ public class DepartmentService {
     public List<Department> getList( Long id )  {
         return ( id == -1L ) ? departmentRepo.findAll() : departmentRepo.findAllById( id );
     }
+    public List<Department> getList(){ return this.getList(-1L); }
 
     /**
      * 

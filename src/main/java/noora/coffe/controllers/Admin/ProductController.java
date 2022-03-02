@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,11 +36,25 @@ public class ProductController extends CommonController{
     @Autowired
     ProductService productService;
     
+    @Autowired
+    SupplierService supplierService;
+    
+    @Autowired
+    MakerService makerService;
+
 
     @GetMapping("/admin/products")
-    public String getProduct(){
+    public String getProduct(Model model, @RequestParam(defaultValue = "0") Integer page) {
 
-        // model.addAttribute( "browserTitle" , "asd" ); 
+        model.addAttribute( "depList", departmentService.getList() );
+        model.addAttribute( "supList", supplierService.getList() );
+        model.addAttribute( "makerList", makerService.getList() );
+
+        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
+        Page<Product> productList = productService.getAll( pageable );
+        
+        super.productPageable(model, productList, page, "products");
+        model.addAttribute("productList", productList);
 
         return "admin/products";
     }
@@ -52,39 +69,15 @@ public class ProductController extends CommonController{
     @PostMapping(
         path = "/admin/product", 
         consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public String updateProduct(
-            // @RequestParam Long id,
-            Product product,
-            @RequestParam Long depid,
+    public String updateProduct( Product product ){
+        productService.addProduct(product);
 
-
-            // FORM OPTION 
-            @RequestParam String option
-    ){
-
-
-        System.out.println("========================");
-        System.out.println( product.getName() );
-        System.out.println( depid );
-        System.out.println("========================");
-        return "redirect:/admin";
-
-        
-        // switch( option )
-        // {
-        //     case "add" :
-        //         if (product.getName().equals("")) { return "redirect:/admin"; }
-        //         productService.addNewProduct(product, departmentID);
-        //         break;
-        //     case "update" : 
-        //         productService.updateProductDepartment( product.getId(), departmentID);  
-        //         break;
-        //     case "delete" :
-        //         productService.deleteById( product.getId() ); 
-        //         break;
-        // }
-
-        // return "redirect:/admin";
+        // System.out.println("========================");
+        // System.out.println( product.getMaker() );
+        // System.out.println( product.getSupplier() );
+        // System.out.println( product.getDepartment() );
+        // System.out.println("========================");
+        return "redirect:/admin/products";
     }
 
 }

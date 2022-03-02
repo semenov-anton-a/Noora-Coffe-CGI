@@ -39,9 +39,11 @@ public class Product extends AbstractPersistable<Long> {
     private Long id;
 
     String name;
-    // String description;
+    String description;
+    BigDecimal priceBig;
+    BigDecimal priceSmall;
+    BigDecimal priceDiscount;
     // String image;
-    // BigDecimal price;
     
     
     
@@ -64,7 +66,7 @@ public class Product extends AbstractPersistable<Long> {
 
     @ManyToOne
     private Maker maker;
-    public Product setMaker(Maker supplier) {
+    public Product setMaker(Maker maker) {
         this.maker = maker;
         return this;
     }

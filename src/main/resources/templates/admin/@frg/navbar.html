@@ -1,49 +1,52 @@
-<nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/admin">Noora Coffe | Admin Panel</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarNavDropdown">
+<th:block th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/admin">Noora Coffe | Admin Panel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNavDropdown">
 
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/products"
-                        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/products') ? 'active':''}">
-                        Products
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/suppliers"
-                        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/suppliers') ? 'active':''}">
-                        Suppliers
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/makers"
-                        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/makers') ? 'active':''}">
-                        Makers
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/department"
-                        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/departments') ? 'active':''}">
-                        Departments
-                    </a>
-                </li>
-            </ul>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/products"
+                            th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/products') ? 'active':''}">
+                            Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/suppliers"
+                            th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/suppliers') ? 'active':''}">
+                            Suppliers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/makers"
+                            th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/makers') ? 'active':''}">
+                            Makers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/department"
+                            th:classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/departments') ? 'active':''}">
+                            Departments
+                        </a>
+                    </li>
+                </ul>
 
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown ">
-                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">Anton Semenov</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown ">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Anton Semenov</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
+            </div>
         </div>
-    </div>
-</nav>
+        
+    </nav>
+</th:block>

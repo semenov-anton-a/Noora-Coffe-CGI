@@ -8,12 +8,25 @@
             data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add Product <i
                 class="fa-solid fa-square-plus ms-1"></i>
         </button>
+
+
+
+
     </div>
 
-
+    <div class="col-md-8 ms-auto me-auto">
+        <div class="row row-cols-1 row-cols-md-2 g-1">
+            <fragment th:include="~{admin/@frg/products :: products(productList=${productList})}" th:remove="tag" />
+            </fragment>
+        
+        <div class="mt-5 ms-auto me-auto">
+            <fragment th:include="admin/@frg/html/static :: pagination" th:remove="tag" />
+        </div>
+    </div>
+    <!--  -->
     <!-- MODAL -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
+        <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
             <div class="modal-content">
                 <form action="/admin/product" method="post">
                     <div class="modal-header">
@@ -22,70 +35,81 @@
                     </div>
 
                     <div class="modal-body">
-                        
+
+                        <div class="input-group mb-3 input-group-sm">
+                            <input type="text" name="name" value="____STATIC___" class="form-control"
+                                placeholder="Product name" aria-label="" required aria-describedby="basic-addon2">
+                        </div>
+                        <div class="col-4 ms-auto me-auto">
                             <div class="input-group mb-3 input-group-sm">
-                                <input type="text" name="name" 
-                                    class="form-control" placeholder="Product name" aria-label=""
-                                    aria-describedby="basic-addon2">
-                            </div>
-                            <!-- <label class="form-label">Product price</label>
-                            <div class="input-group mb-3 input-group-sm">
-                                <input type="number" min="1" class="form-control"
+                                <input type="number" min="0" required placeholder="0" style="text-align:right;"
+                                    class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <span class="input-group-text"><i class="fa-solid fa-euro-sign"></i></span>
+                                <!-- <span class="input-group-text">.</span> -->
+                                <input type="number" min="0" placeholder="0" required class="form-control"
                                     aria-label="Amount (to the nearest dollar)">
-                            </div> 
-                             -->
-                            <!-- <div class="mb-3 input-group-sm">
-                                <label for="exampleFormControlTextarea1" class="form-label">Product description</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div> -->
-
-                            <div class="row justify-content-center">
-                                <div class="col-sm-3 text-center">
-                                    <label class="text-muted" for="exampleFormControl">Category</label>
-                                    <select class="form-select" id="specificSizeSelect" name="depid" >
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <!-- <div class="col-sm-3 text-center">
-                                    <label class="text-muted" for="specificSizeSelect">Supplier</label>
-                                    <select class="form-select" id="specificSizeSelect">
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div> -->
-                                <!-- <div class="col-sm-3 text-center">
-                                    <label class="text-muted" for="specificSizeSelect">Marker</label>
-                                    <select class="form-select" id="specificSizeSelect">
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div> -->
+                                <span class="input-group-text"><i class="fa-solid fa-cent-sign"></i></span>
                             </div>
+                            <!-- <input type="number" min="1" 
+                                    name="price"
+                                    class="form-control"
+                                    placeholder="Product price"
+                                    value="9999"
+                                    aria-label="Amount (to the nearest dollar)">
+                                <input type="number" min="1" 
+                                    name="price"
+                                    class="form-control"
+                                    placeholder="Product price"
+                                    value="00"
+                                    aria-label="Amount (to the nearest dollar)"> -->
+                        </div>
 
-                            <!-- <div class="row mt-3">
+                        <div class="mb-3 input-group-sm">
+                            <textarea class="form-control" name="description" placeholder="Product description"
+                                id="exampleFormControlTextarea1" required
+                                rows="3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius consequatur optio impedit ab, modi quod inventore dolorem quisquam tenetur velit.</textarea>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-sm-3 text-center">
+                                <label class="text-muted" for="exampleFormControl">Category</label>
+                                <select class="form-select" id="specificSizeSelect" name="department">
+                                    <option value="" selected>No category</option>
+                                    <option th:each="dep : ${depList}" th:text="${dep.name}" th:value="${dep.id}">
+                                </select>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <label class="text-muted" for="specificSizeSelect">Supplier</label>
+                                <select class="form-select" id="specificSizeSelect" name="supplier">
+                                    <option value="" selected>No Supplier</option>
+                                    <option th:each="sup : ${supList}" th:text="${sup.name}" th:value="${sup.id}">
+                                </select>
+                            </div>
+                            <div class="col-sm-3 text-center">
+                                <label class="text-muted" for="specificSizeSelect">Marker</label>
+                                <select class="form-select" id="specificSizeSelect" name="maker">
+                                    <option value="" selected>No Marker</option>
+                                    <option th:each="mk : ${makerList}" th:text="${mk.name}" th:value="${mk.id}">
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row mt-3">
                                 <div class="mb-3">
                                     <label for="formFile" class="form-label">Upload image</label>
                                     <input class="form-control" type="file" id="formFile">
                                 </div>
                             </div> -->
-                            <!-- <div class="col-2 mt-3 w-10">
+                        <!-- <div class="col-2 mt-3 w-10">
                                 <img src="https://picsum.photos/200/300" class="img-thumbnail" alt="...">
                             </div> -->
-                     
+
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-danger me-1">
                             Close <i class="fa-solid fa-trash ms-1"></i></button>
-                        <button type="submit" value="add" name="option" 
-                            class="btn btn-sm btn-outline-success">
+                        <button type="submit" value="add" name="option" class="btn btn-sm btn-outline-success">
                             Add <i class="fa-solid fa-square-plus ms-1"></i>
                     </div>
                 </form>
@@ -93,10 +117,10 @@
         </div>
     </div>
     <!-- Auto Modal OPEN -->
-    <script>window.onload = function () { document.getElementById("modal-add-product").click(); };</script>
+    <!-- <script>window.onload = function () { document.getElementById("modal-add-product").click(); };</script> -->
     <!-- MODAL END -->
 
-    
+
 </div>
 
 

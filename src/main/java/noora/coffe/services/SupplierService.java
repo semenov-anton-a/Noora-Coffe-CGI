@@ -45,6 +45,7 @@ public class SupplierService {
     public List<Supplier> getList( Long id )  {
         return ( id == -1L ) ? supplierRepo.findAll() : supplierRepo.findAllById( id );
     }
+    public List<Supplier> getList()  {return this.getList(-1L);}
     /**
      * Remove cascade 
      * @param department

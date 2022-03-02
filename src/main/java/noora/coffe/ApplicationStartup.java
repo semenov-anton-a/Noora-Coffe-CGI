@@ -84,51 +84,51 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
 		Product p_0 = new Product(
 				"0_product_0", null);
-		productService.save(p_0);
+		productService.addProduct(p_0);
 
 		Product p_1 = new Product(
 				"1_product_1", null);
-		productService.save(p_1);
+		productService.addProduct(p_1);
 
 		Product p_2 = new Product(
 				"2_product_2",
 				departmentRepo.getById(1L));
-		productService.save(p_2);
+		productService.addProduct(p_2);
 
 		Product p_3 = new Product(
 				"3_product_3",
 				departmentRepo.getById(1L));
-		productService.save(p_3);
+		productService.addProduct(p_3);
 
 		Product p_4 = new Product(
 				"4_product_4",
 				departmentRepo.getById(2L));
-		productService.save(p_4);
+		productService.addProduct(p_4);
 
 		Product p_5 = new Product(
 				"5_product_5",
 				departmentRepo.getById(2L));
-		productService.save(p_5);
+		productService.addProduct(p_5);
 
 		Product p_6 = new Product(
 				"6_product_6",
 				null);
-		productService.save(p_6);
+		productService.addProduct(p_6);
 
 		Product p_7 = new Product(
 				"7_product_7",
 				departmentRepo.getById(2L));
-		productService.save(p_7);
+		productService.addProduct(p_7);
 
 		Product p_8 = new Product(
 				"8_product_8",
 				departmentRepo.getById(2L));
-		productService.save(p_8);
+		productService.addProduct(p_8);
 
 		Product p_9 = new Product(
 				"9_product_9",
 				departmentRepo.getById(1L));
-		productService.save(p_9);
+		productService.addProduct(p_9);
 		return this;
 	}
 

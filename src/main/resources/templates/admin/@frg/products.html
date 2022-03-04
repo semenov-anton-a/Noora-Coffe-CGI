@@ -3,15 +3,23 @@
         <div class="card">
             <!-- <img src="..." class="card-img-top" alt="..."> -->
             <div class="card-body">
-                <h5 th:text="${prod.name}">TITLE</h5>
-                <p class="card-text">DESCRIPTION</p>
-                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a type="button" class="btn btn-sm btn-outline-danger me-1">
-                        Remove<i class="fa fa-trash ms-1"></i>
-                    </a>
-                    <a type="button" th:href="|/admin/product/${prod.id}|" class="btn btn-sm btn-outline-primary">
-                        Details
-                    </a>
+                <div class="d-flex justify-content-between">
+                    <h5 th:text="${prod.name}">TITLE</h5>
+                    <span th:classappend="(${prod.active})?bg-success:bg-danger"
+                        class="p-2 m-2 border border-light rounded-circle"></span>
+                </div>
+                <p class="card-text" th:text="${prod.description}">DESCRIPTION</p>
+                <div class="row">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Department : <span th:text="${prod.getDepartmentName()}"></span></li>
+                        <li class="list-group-item">Supplier : <span th:text="${prod.getSupplierName()}"></span></li>
+                        <li class="list-group-item">Marker : <span th:text="${prod.getMakerName()}"></span></li>
+                        <li class="list-group-item">Price : <span th:text="${prod.getPrice()}"></span></li>
+                    </ul>
+                </div>
+                <div class="btn-group d-flex" role="group" aria-label="Basic outlined example">
+                    <a type="button" th:href="|/admin/product/${prod.id}|"
+                        class="btn btn-sm btn-outline-primary col-2">Details</a>
                 </div>
             </div>
         </div>

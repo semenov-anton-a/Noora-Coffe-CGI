@@ -3,6 +3,7 @@ package noora.coffe.services;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -130,9 +131,14 @@ public class ProductService {
      * SAVE 
      * @param product
      */
-    public void addProduct(Product product) {
-        productRepo.save(product);
-    }
+    public void addProduct(Product product)     { productRepo.save(product); }    
+    public void updateProduct(Product product)  { productRepo.save(product); }
+    public void removeProduct(Product product)  { productRepo.deleteById( product.getId() ); }
+
+    //
+    public Product getProductByID(Long id) { return productRepo.getById(id); }
+    
+    
 
 
     // public List<Product> addEntityDependencies(

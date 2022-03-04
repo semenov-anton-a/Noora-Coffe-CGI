@@ -38,11 +38,14 @@ public class Product extends AbstractPersistable<Long> {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
 
-    String name;
-    String description;
-    BigDecimal priceBig;
-    BigDecimal priceSmall;
-    BigDecimal priceDiscount;
+    String  name;
+    String  description;
+    int     priceBig;
+    int     priceSmall;
+    Boolean active = false;
+    
+    
+    // BigDecimal priceDiscount;
     // String image;
     
     
@@ -71,16 +74,55 @@ public class Product extends AbstractPersistable<Long> {
         return this;
     }
 
-
-    public Product( String name, Department dep ){
+    public Product( 
+        String name, 
+        String description, 
+        int priceBig, 
+        int priceSmall
+    ){
         this.name = name;
-        this.setDepartment(dep);
+        this.description = description;
+        this.priceBig = priceBig;
+        this.priceSmall = priceSmall;
+    };
+
+
+
+
+    public String getDepartmentName(){
+        if( this.getDepartment() == null ) return "No Category";
+        return this.getDepartment().getName();     
+    }
+    public String getSupplierName(){
+        if( this.getSupplier() == null ) return "No Supplier";
+        return this.getSupplier().getName();     
+    }
+    public String getMakerName(){
+        if( this.getMaker() == null ) return "No Maker";
+        return this.getMaker().getName();     
     }
 
 
-    public Product(String string) {
-        this.name = string;        
-    };
+    public String getPrice(){
+        int euro = this.getPriceBig();
+        int cent = this.getPriceSmall();
+        String centStr =  ( Integer.valueOf(cent) == null )? "00" : cent+"" ;
+        String euroStr =  ( Integer.valueOf(euro) == null )? "00" : euro+"" ;
+        return euroStr + "." + centStr;
+    }
+
+    // public Product( String name, Department dep ){
+    //     this.name = name;
+    //     this.setDepartment(dep);
+    // }
+
+
+    // public Product(String string) {
+    //     this.name = string;        
+    // };
     
+
+
+    // public Product ( String name, String description, BigDecimal priceBig, BigDecimal priceSmall ){}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,7 +59,30 @@ public class ProductController extends CommonController{
 
         return "admin/products";
     }
+    /**
+     * 
+     * @param model
+     * @param page
+     * @return
+     */
+    @GetMapping("/admin/product/{id}")
+    public String getProductByID( Model model, @PathVariable Long id ) {
+        
+        Product product = productService.getProductByID( id );
+        System.out.println("========================");
+        // System.out.println( product.getDepartment().getId() );
+        // System.out.println( product.getDepartment().notNullValue() );
+        System.out.println("========================");
 
+
+
+        model.addAttribute( "depList", departmentService.getList() );
+        model.addAttribute( "supList", supplierService.getList() );
+        model.addAttribute( "makerList", makerService.getList() );
+        model.addAttribute( "product", product );
+
+        return "admin/product-details";
+    }
     /**
      * Update product category
      * 
@@ -77,6 +101,38 @@ public class ProductController extends CommonController{
         // System.out.println( product.getSupplier() );
         // System.out.println( product.getDepartment() );
         // System.out.println("========================");
+        return "redirect:/admin/products";
+    }
+
+
+    /**
+     * Update product category
+     * 
+     * @POST
+     * @param department
+     * @return
+     */
+    @PostMapping(
+        path = "/admin/product/edit/{id}", 
+        consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    public String editProduct( Product product, @RequestParam String option){
+        
+        switch( option )
+        {
+            case "remove" : productService.removeProduct(product) ;
+                break;
+            case "update": productService.updateProduct(product);
+                break;
+        }
+        // productService.addProduct(product);
+        // productService.updateProduct(product);
+        
+        System.out.println("========================");
+        System.out.println( option );
+        // System.out.println( product.getMaker() );
+        // System.out.println( product.getSupplier() );
+        // System.out.println( product.getDepartment() );
+        System.out.println("========================");
         return "redirect:/admin/products";
     }
 

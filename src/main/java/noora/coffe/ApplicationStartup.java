@@ -42,11 +42,13 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 	public void onApplicationEvent(final ApplicationReadyEvent event) {
 
 		this
-				.makeFakeDepartments()
-				.makeFakeSuppliers()
-				.makeFakeMakers()
-				.makeFakeProduct();
+			.makeFakeDepartments()
+			.makeFakeSuppliers()
+			.makeFakeMakers()
+			.makeFakeProduct();
 	}
+
+	
 
 	@Transactional
 	private ApplicationStartup makeFakeDepartments() {
@@ -72,63 +74,41 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 		return this;
 	}
 
+	private String productDescription() {
+		return "Lorem Ipsum is simply dummy text of the printing and typesetting industry" +
+				"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" +
+				"when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+
+	}
+
+
+	
 	@Transactional
 	private ApplicationStartup makeFakeProduct() {
 
 		if (productRepo.findAll().size() != 0) {
 			return this;
 		}
-
 		System.out.println("==================");
 		System.out.println(" INSERT PRODUCS ................");
+		for (int i = 0; i <= 10; i++) 
+		{
+			int max = 99;
+			int min = 0;
+			int range = max - min + 1;
 
-		Product p_0 = new Product(
-				"0_product_0", null);
-		productService.addProduct(p_0);
+			int euro = (int) (Math.random() * range) + min;
+			int cent = (int) (Math.random() * range) + min;
 
-		Product p_1 = new Product(
-				"1_product_1", null);
-		productService.addProduct(p_1);
-
-		Product p_2 = new Product(
-				"2_product_2",
-				departmentRepo.getById(1L));
-		productService.addProduct(p_2);
-
-		Product p_3 = new Product(
-				"3_product_3",
-				departmentRepo.getById(1L));
-		productService.addProduct(p_3);
-
-		Product p_4 = new Product(
-				"4_product_4",
-				departmentRepo.getById(2L));
-		productService.addProduct(p_4);
-
-		Product p_5 = new Product(
-				"5_product_5",
-				departmentRepo.getById(2L));
-		productService.addProduct(p_5);
-
-		Product p_6 = new Product(
-				"6_product_6",
-				null);
-		productService.addProduct(p_6);
-
-		Product p_7 = new Product(
-				"7_product_7",
-				departmentRepo.getById(2L));
-		productService.addProduct(p_7);
-
-		Product p_8 = new Product(
-				"8_product_8",
-				departmentRepo.getById(2L));
-		productService.addProduct(p_8);
-
-		Product p_9 = new Product(
-				"9_product_9",
-				departmentRepo.getById(1L));
-		productService.addProduct(p_9);
+			Product product = new Product(
+						i + "_TEST_PRODUCT_" + i,
+						this.productDescription(),
+						euro,
+						( euro == 0 ) ? euro + 10 : cent
+					);
+			
+			productService.addProduct( product );
+		}
 		return this;
 	}
 
@@ -157,11 +137,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 		if (supplierRepo.findAll().size() != 0) {
 			return this;
 		}
-
-
-		// Maker 
-
-
 		return this;
 	}
 

@@ -45,6 +45,7 @@ public class AdminSupplierController extends CommonControllerAdvice {
      */
     @ModelAttribute("suplierList")
     private List<Supplier> getSupplierList(Model model, @RequestParam(defaultValue = "-1") Long Id) {
+        new AdminCommon().setModelAttributes( model );
         List<Supplier> sup = supplierService.getList(Id);
         model.addAttribute("sup", sup);
         model.addAttribute("styleActiveClass", Id);
@@ -58,6 +59,7 @@ public class AdminSupplierController extends CommonControllerAdvice {
      */
     @GetMapping("/admin/suppliers")
     public String getSuppliers(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        new AdminCommon().setModelAttributes( model );
         this.getSupplierList(model, 0L);
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productService.getProduct_without_supplier( pageable );
@@ -74,7 +76,7 @@ public class AdminSupplierController extends CommonControllerAdvice {
      */
     @GetMapping("/admin/suppliers/all")
     public String getSupplierAll(Model model, @RequestParam(defaultValue = "0") Integer page) {
-        
+        new AdminCommon().setModelAttributes( model );
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productService.getAll( pageable );
         
@@ -89,6 +91,7 @@ public class AdminSupplierController extends CommonControllerAdvice {
      */
     @GetMapping("/admin/suppliers/{id}")
     public String getDepartmentsById( Model model, @PathVariable Long id, @RequestParam(defaultValue = "0") Integer page ) {
+        new AdminCommon().setModelAttributes( model );
         this.getSupplierList(model, id);
 
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );

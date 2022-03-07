@@ -57,6 +57,7 @@ public class AdminDepartmentController extends CommonControllerAdvice {
      */
     @GetMapping("/admin/department")
     public String getDepartments(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        new AdminCommon().setModelAttributes( model );
         this.getDepartmentsList(model, 0L);
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productService.getProduct_without_department( pageable );
@@ -73,6 +74,7 @@ public class AdminDepartmentController extends CommonControllerAdvice {
      */
     @GetMapping("/admin/department/all")
     public String getDepartmentsAll(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        new AdminCommon().setModelAttributes( model );
         this.getDepartmentsList(model, -1L);
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productService.getAll( pageable );
@@ -87,7 +89,12 @@ public class AdminDepartmentController extends CommonControllerAdvice {
      * @return
      */
     @GetMapping("/admin/department/{id}")
-    public String getDepartmentsById(Model model, @PathVariable Long id, @RequestParam(defaultValue = "0") Integer page) {
+    public String getDepartmentsById(
+        Model model, 
+        @PathVariable Long id, 
+        @RequestParam(defaultValue = "0") Integer page 
+    ){
+        new AdminCommon().setModelAttributes( model );
         this.getDepartmentsList(model, id);
 
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );

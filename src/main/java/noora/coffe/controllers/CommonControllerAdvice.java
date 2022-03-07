@@ -13,15 +13,12 @@ import noora.coffe.entity.Product;
 @ControllerAdvice
 public class CommonControllerAdvice {
 
-    @ModelAttribute("browserTitle")
-    public String browserTitleAdmin(){ return  new String("Noora Coffe | Admin Page"); }
+
     
-    @ModelAttribute("browserTitle")
-    public String browserTitlePublic(){ return  new String("Noora Coffe"); }
+
 
     @ModelAttribute("appversion")
     public String appVersion(){ return CoffeApplication.getAppVersion(); }
-
 
     protected static String getPublicTemplate( String template ){ return "public/"+template; }
     protected static String getPublicTemplateRedirect( String template ){ return "redirect:/"+template; }
@@ -29,9 +26,12 @@ public class CommonControllerAdvice {
 
     public String getProductLinkDetailsLink( String type ){
         String str = "";
-        switch( type ){
-            case "admin"  : str="admin/product";
+        switch( type )
+        {
+            case "admin"  : 
+                str="admin/product"; break;
             case "public" : str="product";
+                break;
         }
 
         return str;
@@ -54,11 +54,15 @@ public class CommonControllerAdvice {
         model.addAttribute("pageBack", pageB);
         model.addAttribute("pageNext", pageN);
 
-        return  this.showPaginations( model, true, "/admin/"+url );
+        return  this.showPaginations( model, true, url );
     }
+
+    
     protected CommonControllerAdvice showPaginations(Model model, boolean pagination, String url) {
         model.addAttribute("pagination", pagination);
         model.addAttribute("paginationUri", url);
         return this;
     }
+
+
 }

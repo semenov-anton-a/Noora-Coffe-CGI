@@ -18,8 +18,14 @@
                     </ul>
                 </div>
                 <div class="btn-group d-flex" role="group" aria-label="Basic outlined example">
+                    <th:block th:if="${!showBuyButton}">
                     <a type="button" th:href="|/${productDetailsLink}/${prod.id}|"
                         class="btn btn-sm btn-outline-primary col-2">Details</a>
+                    </th:block>
+                    <th:block th:if="${showBuyButton}">
+                        <a type="button" th:href="|/${productDetailsLink}/${prod.id}|"
+                        class="btn btn-sm btn-outline-primary col-2">Buy</a>
+                    </th:block>
                 </div>
             </div>
         </div>

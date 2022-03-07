@@ -23,7 +23,7 @@ import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @Controller
-public class AdminProductController extends CommonControllerAdvice{
+public class AdminProductController extends AdminCommon{
 
 
     @Autowired
@@ -47,7 +47,7 @@ public class AdminProductController extends CommonControllerAdvice{
 
     @GetMapping("/admin/products")
     public String getProduct(Model model, @RequestParam(defaultValue = "0") Integer page) {
-
+        new AdminCommon().setModelAttributes( model );
         model.addAttribute( "depList", departmentService.getList() );
         model.addAttribute( "supList", supplierService.getList() );
         model.addAttribute( "makerList", makerService.getList() );
@@ -57,6 +57,10 @@ public class AdminProductController extends CommonControllerAdvice{
         
         super.productPageable(model, productList, page, "products");
         model.addAttribute("productList", productList);
+
+        model.addAttribute(
+            "productDetailsLink", 
+            this.getProductLinkDetailsLink( super.getType() )) ;
 
         return "admin/products";
     }
@@ -68,20 +72,21 @@ public class AdminProductController extends CommonControllerAdvice{
      */
     @GetMapping("/admin/product/{id}")
     public String getProductByID( Model model, @PathVariable Long id ) {
-        
+        new AdminCommon().setModelAttributes( model );
         Product product = productService.getProductByID( id );
+        
+        
         System.out.println("========================");
         // System.out.println( product.getDepartment().getId() );
         // System.out.println( product.getDepartment().notNullValue() );
         System.out.println("========================");
-
-
 
         model.addAttribute( "depList", departmentService.getList() );
         model.addAttribute( "supList", supplierService.getList() );
         model.addAttribute( "makerList", makerService.getList() );
         model.addAttribute( "product", product );
 
+        
         return "admin/product-details";
     }
     /**
@@ -95,6 +100,7 @@ public class AdminProductController extends CommonControllerAdvice{
         path = "/admin/product", 
         consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
     public String updateProduct( Product product ){
+        
         productService.addProduct(product);
 
         // System.out.println("========================");

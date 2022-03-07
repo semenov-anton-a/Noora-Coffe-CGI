@@ -51,6 +51,7 @@ public class AdminMakerController extends CommonControllerAdvice {
      */
     @ModelAttribute("makerList")
     private List<Maker> getMakerList(Model model, @RequestParam(defaultValue = "-1") Long Id) {
+        new AdminCommon().setModelAttributes( model );
         List<Maker> sup = makerService.getList(Id);
         model.addAttribute("sup", sup);
         model.addAttribute("styleActiveClass", Id);
@@ -64,6 +65,7 @@ public class AdminMakerController extends CommonControllerAdvice {
      */
     @GetMapping("/admin/makers")
     public String getMakers(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        new AdminCommon().setModelAttributes( model );
         this.getMakerList( model, 0L);
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productService.getProduct_without_maker( pageable );
@@ -80,6 +82,7 @@ public class AdminMakerController extends CommonControllerAdvice {
      */
     @GetMapping("/admin/makers/all")
     public String getSupplierAll(Model model, @RequestParam(defaultValue = "0") Integer page) {
+        new AdminCommon().setModelAttributes( model );
         
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productService.getAll( pageable );
@@ -95,6 +98,7 @@ public class AdminMakerController extends CommonControllerAdvice {
      */
     @GetMapping("/admin/makers/{id}")
     public String getMakersById( Model model, @PathVariable Long id, @RequestParam(defaultValue = "0") Integer page ) {
+        new AdminCommon().setModelAttributes( model );
         this.getMakerList(model, id);
 
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );

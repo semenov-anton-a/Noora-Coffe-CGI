@@ -122,6 +122,11 @@ public class ProductService {
     public Page<Product> getProduct_without_maker( Pageable pageable ) {
         return productRepo.findAllProductByMakerId( null, pageable );
     }
+
+
+    public Page<Product> getAllWhereActive(Boolean active, Pageable pageable) {
+        return productRepo.findAllProductByActive(active, pageable );
+    }
     public Page<Product> getAll(Pageable pageable) {
         return productRepo.findAll( pageable );
     }

@@ -17,7 +17,7 @@ import noora.coffe.services.*;
 
 
 @Controller
-public class PublicIndexController extends CommonControllerAdvice{
+public class PublicIndexController extends PublicCommon{
     
     
     @Autowired
@@ -41,28 +41,25 @@ public class PublicIndexController extends CommonControllerAdvice{
     private String thisType;
 
 
+
  
 
     @GetMapping("/")
     public String getPublicIndex( Model model, @RequestParam(defaultValue = "0") Integer page ){
-
-      
-        model.addAttribute( "depList", departmentService.getList() );
-        model.addAttribute( "supList", supplierService.getList() );
-        model.addAttribute( "makerList", makerService.getList() );
-
-        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
-        Page<Product> productList = productService.getAll( pageable );
         
-        super.productPageable(model, productList, page, "products");
+        new PublicCommon().setModelAttributes( model );
+      
+        Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
+        Page<Product> productList = productService.getAllWhereActive(true, pageable );
+        
+        super.productPageable(model, productList, page, "");
         model.addAttribute("productList", productList);
-
-
-
-        model.addAttribute("productDetailsLink", this.getProductLinkDetailsLink( new PublicCommon().getType() ) );
+        
+        model.addAttribute(
+            "productDetailsLink", 
+            this.getProductLinkDetailsLink( super.getType() )) ;
 
         return "public/index";
-        // return getTemplate("index");
     }
 
 }

@@ -18,10 +18,7 @@ import noora.coffe.services.*;
 
 
 @Controller
-public class AdminIndexController extends CommonControllerAdvice {
-
-
-
+public class AdminIndexController extends AdminCommon {
 
     @Autowired
     DepartmentRepo departmentRepo;
@@ -45,8 +42,8 @@ public class AdminIndexController extends CommonControllerAdvice {
      */
     @GetMapping("/admin")
     public String getAdminIndex(Model model) {
-        
-        // model.addAttribute("browserTitle", "Noora Coffe | Admin Page");
+
+        new AdminCommon().setModelAttributes( model );
 
         // List<Department> departmentList = departmentService.getAllDepartments();
         // List<Supplier> supplierList = supplierService.getAllSuppliers();

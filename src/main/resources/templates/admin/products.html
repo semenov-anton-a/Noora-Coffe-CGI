@@ -8,16 +8,11 @@
             data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add Product <i
                 class="fa-solid fa-square-plus ms-1"></i>
         </button>
-
-
-
-
     </div>
 
     <div class="col-md-8 ms-auto me-auto">
         <div class="row row-cols-1 row-cols-md-2 g-1">
-            <fragment th:include="~{admin/@frg/products :: products(productList=${productList})}" th:remove="tag" />
-            </fragment>
+            <fragment th:include="~{@common/products_card :: products(productList=${productList})}"th:remove="tag"></fragment>
         
         <div class="mt-5 ms-auto me-auto">
             <fragment th:include="admin/@frg/html/static :: pagination" th:remove="tag" />

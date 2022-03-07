@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import noora.coffe.controllers.CommonControllerAdvice;
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @Controller
-public class ProductController extends CommonController{
+public class AdminProductController extends CommonControllerAdvice{
 
 
     @Autowired

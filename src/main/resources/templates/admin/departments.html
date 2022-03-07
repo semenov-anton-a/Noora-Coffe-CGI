@@ -45,7 +45,7 @@
         <!-- PRODUCTS LIST -->
         <div class="col-md-8">
             <div class="row row-cols-1 row-cols-md-2 g-1">
-                <fragment th:include="~{admin/@frg/products :: products(productList=${productList})}" th:remove="tag" /></fragment>
+                <fragment th:include="~{@common/products_card :: products(productList=${productList})}"th:remove="tag"></fragment>
             </div>
 
         </div><!--  -->

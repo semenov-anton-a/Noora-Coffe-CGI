@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import noora.coffe.controllers.CommonControllerAdvice;
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 import noora.coffe.services.*;
 
 @Controller
-public class MakerController extends CommonController {
+public class AdminMakerController extends CommonControllerAdvice {
 
     @Autowired
     DepartmentRepo departmentRepo;

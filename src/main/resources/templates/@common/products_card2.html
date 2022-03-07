@@ -1,0 +1,31 @@
+<th:block th:fragment="products">
+    <div class="col" th:each="prod: ${productList}">
+        <div class="card">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 th:text="${prod.key.name}">TITLE</h5>
+                    <span th:classappend="(${prod.key.active})?bg-success:bg-danger"
+                        class="p-2 m-2 border border-light rounded-circle"></span>
+                </div>
+                <p class="card-text" th:text="${prod.key.description}">DESCRIPTION</p>
+                <div class="row">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Department : <span th:text="${prod.key.getDepartmentName()}"></span></li>
+                        <li class="list-group-item">Supplier : <span th:text="${prod.key.getSupplierName()}"></span></li>
+                        <li class="list-group-item">Marker : <span th:text="${prod.key.getMakerName()}"></span></li>
+                        <li class="list-group-item">Price : <span th:text="${prod.key.getPrice()}"></span></li>
+                    </ul>
+
+                    <h2>Count : <span th:text="${prod.value}"></span></h2>
+                    <h2>Total price : <span th:text="${prod.key.getPrice()} * ${prod.value}"></span></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mt-5">
+        <div class="row">
+            <h1>Total price: <span th:text="${productsTotalPrice}"></h1>
+        </div>
+    </div>
+</th:block>

@@ -8,15 +8,16 @@
         <div class="col-md-12">
             <div class="row row-cols-1 row-cols-md-2 g-1">
                 <fragment 
-                    th:include="~{@common/products_card :: products(productList=${productList})}" 
+                    th:include="~{@common/products_card2 :: products(productList=${productList})}" 
                     th:remove="tag">
                 </fragment>
             </div>
 
-        </div><!--  -->
-        <div class="row col-12 mt-5">
-            <fragment th:include="admin/@frg/html/static :: pagination" th:remove="tag" />
         </div>
+        <!-- Pagination -->
+        <!-- <div class="row col-12 mt-5">
+            <fragment th:include="admin/@frg/html/static :: pagination" th:remove="tag" />
+        </div> -->
     </div>
 </div>
 <fragment th:include="public/@frg/html/footer :: footer" th:remove="tag"/>

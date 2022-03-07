@@ -103,26 +103,18 @@ public class Product extends AbstractPersistable<Long> {
     }
 
 
+    /**
+     * 
+     * @return
+     */
     public String getPrice(){
         int euro = this.getPriceBig();
         int cent = this.getPriceSmall();
-        String centStr =  ( Integer.valueOf(cent) == null )? "00" : cent+"" ;
-        String euroStr =  ( Integer.valueOf(euro) == null )? "00" : euro+"" ;
+        String centStr =  ( Integer.valueOf(cent) == null ) ? "00" : cent + "" ;
+        String euroStr =  ( Integer.valueOf(euro) == null ) ? "00" : euro + "" ;
+        // return  Float.parseFloat(euroStr + "." + centStr);
+        // return new BigDecimal( euroStr + "." + centStr );
         return euroStr + "." + centStr;
     }
-
-    // public Product( String name, Department dep ){
-    //     this.name = name;
-    //     this.setDepartment(dep);
-    // }
-
-
-    // public Product(String string) {
-    //     this.name = string;        
-    // };
-    
-
-
-    // public Product ( String name, String description, BigDecimal priceBig, BigDecimal priceSmall ){}
 
 }

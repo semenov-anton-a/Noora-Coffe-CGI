@@ -56,12 +56,12 @@ public class PublicIndexController extends PublicCommon{
     public String getPublicIndex( 
         Model model, 
         @RequestParam(defaultValue = "0") Integer page
-        
     ){
-        model.addAttribute( "countProductInAcard", shoppingCart.getIterator() );
-
         new PublicCommon().setModelAttributes( model );
-      
+        
+        
+        model.addAttribute( "countProductInAcard", shoppingCart.getIterator() );
+        
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
         Page<Product> productList = productService.getAllWhereActive(true, pageable );
         

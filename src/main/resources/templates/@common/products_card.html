@@ -23,8 +23,10 @@
                         class="btn btn-sm btn-outline-primary col-2">Details</a>
                     </th:block>
                     <th:block th:if="${showBuyButton}">
-                        <a type="button" th:href="|/${productDetailsLink}/${prod.id}|"
-                        class="btn btn-sm btn-outline-primary col-2">Buy</a>
+                        <form method="post" th:action="|/addproduct/${prod.id}|" class="form-control border-0">
+                            <button type="submit" th:href="|/${productDetailsLink}/${prod.id}|"
+                            class="btn btn-sm btn-outline-primary col-2">Buy</a>
+                        </form>
                     </th:block>
                 </div>
             </div>

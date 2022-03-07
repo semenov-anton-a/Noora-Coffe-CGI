@@ -1,5 +1,7 @@
 package noora.coffe.controllers.Public;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import noora.coffe.repos.*;
@@ -38,15 +42,24 @@ public class PublicIndexController extends PublicCommon{
     @Autowired
     MakerService makerService;
 
+    @Autowired
+    ShoppingCart shoppingCart;
+
     private String thisType;
 
 
-
+    @Autowired
+    HttpSession httpSession;
  
 
     @GetMapping("/")
-    public String getPublicIndex( Model model, @RequestParam(defaultValue = "0") Integer page ){
+    public String getPublicIndex( 
+        Model model, 
+        @RequestParam(defaultValue = "0") Integer page
         
+    ){
+        model.addAttribute( "countProductInAcard", shoppingCart.getIterator() );
+
         new PublicCommon().setModelAttributes( model );
       
         Pageable pageable = PageRequest.of( page, this.itemsCoutOfPage );
@@ -61,5 +74,21 @@ public class PublicIndexController extends PublicCommon{
 
         return "public/index";
     }
+
+
+
+    @PostMapping("/addproduct/{id}")
+    public String addProductToCard( @PathVariable Long id ){
+        Product product = productService.getProductByID(id);
+
+        shoppingCart.addToCart(product);
+        
+        // System.out.println("========================");
+        // System.out.println( product );
+        // System.out.println("========================");
+        
+        return getPublicTemplateRedirect("");
+    }
+
 
 }

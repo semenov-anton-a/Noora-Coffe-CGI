@@ -15,9 +15,11 @@
                         <button type="button" class="btn btn-outline-primary btn-sm
                             position-relative">
                             <i class="fa-solid fa-cart-shopping"></i>
-                            <span class="position-absolute top-0 start-100translate-middle badge rounded-pill bg-danger">99+
-                                <span class="visually-hidden">unread messages</span>
+                            <th:block  th:if="${countProductInAcard != 0}">
+                            <span th:text="${countProductInAcard}"
+                                class="position-absolute top-0 start-100translate-middle badge rounded-pill bg-danger">
                             </span>
+                        </th:block>
                         </button>
                     </li>
                     <li class="nav-item">

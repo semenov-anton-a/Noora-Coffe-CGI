@@ -20,6 +20,9 @@ import noora.coffe.services.*;
 @Controller
 public class AdminIndexController extends CommonControllerAdvice {
 
+
+
+
     @Autowired
     DepartmentRepo departmentRepo;
 

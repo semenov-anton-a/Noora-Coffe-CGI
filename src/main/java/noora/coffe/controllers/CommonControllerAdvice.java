@@ -13,10 +13,10 @@ import noora.coffe.entity.Product;
 @ControllerAdvice
 public class CommonControllerAdvice {
 
-    @ModelAttribute("browserTitle_admin")
+    @ModelAttribute("browserTitle")
     public String browserTitleAdmin(){ return  new String("Noora Coffe | Admin Page"); }
     
-    @ModelAttribute("browserTitle_public")
+    @ModelAttribute("browserTitle")
     public String browserTitlePublic(){ return  new String("Noora Coffe"); }
 
     @ModelAttribute("appversion")

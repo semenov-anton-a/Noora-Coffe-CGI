@@ -19,6 +19,7 @@ import noora.coffe.services.*;
 @Controller
 public class PublicIndexController extends CommonControllerAdvice{
     
+    
     @Autowired
     DepartmentRepo departmentRepo;
 
@@ -38,7 +39,6 @@ public class PublicIndexController extends CommonControllerAdvice{
     MakerService makerService;
 
     private String thisType;
-
 
 
  

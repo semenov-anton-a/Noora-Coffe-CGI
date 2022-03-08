@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.data.repository.query.ReturnedType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**  */
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 import noora.coffe.services.*;
+import noora.coffe.services.UserRolesService.Roles;
 
 /**  */
 
@@ -23,32 +25,81 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 	// DepartmentService
 	@Autowired
 	DepartmentService departmentService;
+	
 	@Autowired
 	DepartmentRepo departmentRepo;
 
 	// ProductService
 	@Autowired
 	ProductService productService;
+	
 	@Autowired
 	ProductRepo productRepo;
+	
 	@Autowired
 	SupplierRepo supplierRepo;
+	
 	@Autowired
 	SupplierService supplierService;
 
+
+	@Autowired
+	UserRolesService userRolesService;
+
+
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	UserRolesRepo userRolesRepository;
+
+
+	
 	/** -------------------------- */
 
 	@Override
 	public void onApplicationEvent(final ApplicationReadyEvent event) {
 
-		this
-			.makeFakeDepartments()
-			.makeFakeSuppliers()
-			.makeFakeMakers()
-			.makeFakeProduct();
+
+		// UserRoles acc;
+		System.out.println("=====================");
+		System.out.println( Roles.CLIENT );
+		System.out.println("=====================");
+		// this
+		// 	.makeFakeDepartments()
+		// 	.makeFakeSuppliers()
+		// 	.makeFakeMakers()
+		// 	.makeFakeProduct()
+		// 	.makeUsers();
 	}
 
 	
+
+	private ApplicationStartup makeUsers() {
+
+		if (userRepository.findAll().size() != 0) {
+			return this;
+		}
+
+
+		String account = "ACCOUNT";
+		String admin = "ADMIN";
+
+		UserRoles acc = new UserRoles(account);
+		UserRoles adm = new UserRoles(admin);
+
+		userRolesRepository.save( acc );
+		userRolesRepository.save( adm );
+
+		// User u = new User( "anton@gmail.com", passwordEncoder.encode("pass") );
+
+		// userRepository.save(u);
+
+		return this;
+
+	}
+
+
 
 	@Transactional
 	private ApplicationStartup makeFakeDepartments() {

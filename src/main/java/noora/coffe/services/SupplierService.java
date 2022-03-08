@@ -21,42 +21,44 @@ public class SupplierService {
     SupplierRepo supplierRepo;
     
 
-    public List<Supplier> getAllSuppliers() {
-        return supplierRepo.findAll();
-    }
-
-
-
-    public boolean addNewSupplier(Supplier supplier) {
-        if ( supplier.getName().equals("") ) {
-            return false;
-        }
+    
+    /**
+     * 
+     * @param supplier
+     * @return
+     */
+    public boolean add(Supplier supplier) {
+        // TODO VALIDATE 
+        if ( supplier.getName().equals("") ) { return false; }
+        if ( supplier.getContact().equals("") ) { return false; }
+        // if ( supplier.validEmail(supplier.getEmail()) ) { return false; }
         supplier.getName().trim();
         supplierRepo.save( supplier );
         return true;
     }
-
-    // @Transactional
-    // public boolean addNewDepartment( Department department ) {
-        
-    //     if ( department.getName().equals("") ) {
-    //         return false;
-    //     }
-        
-    //     departmentRepo.save(
-    //         new Department( department.getName().trim() )
-    //     );
-
-    //     return true;
-    // }
-
-    // /**
-    //  * Remove cascade 
-    //  * @param department
-    //  */
-    // @Transactional
-    // public void deleteById(Department department) {
-    //     departmentRepo.deleteById( department.getId() );
-    // } 
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    @Transactional
+    public List<Supplier> getList( Long id )  {
+        return ( id == -1L ) ? supplierRepo.findAll() : supplierRepo.findAllById( id );
+    }
+    public List<Supplier> getList()  {return this.getList(-1L);}
+    /**
+     * Remove cascade 
+     * @param department
+     */
+    @Transactional
+    public boolean deleteById( Long id ) {
+        if( supplierRepo.findById(id) != null ){ return false; }
+        supplierRepo.deleteById( id );
+        return true;
+    }
+    public void update(Supplier s) {
+        supplierRepo.save( s );
+    }
+    
 
 }

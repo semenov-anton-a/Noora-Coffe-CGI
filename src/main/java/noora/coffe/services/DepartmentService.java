@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 
+
 @Service
 public class DepartmentService {
+
 
     @Autowired
     DepartmentRepo departmentRepo;
@@ -28,27 +30,26 @@ public class DepartmentService {
      * @return
      */
     @Transactional
-    public List<Department> getDepartments( Long id ) 
-    {
-        if( id == -1L )
-        { 
-            return departmentRepo.findAll(); 
-        }
-        
-        return departmentRepo.findAllById( id );
+    public List<Department> getList( Long id )  {
+        return ( id == -1L ) ? departmentRepo.findAll() : departmentRepo.findAllById( id );
     }
+    public List<Department> getList(){ return this.getList(-1L); }
 
+    /**
+     * 
+     * @param name
+     * @return
+     */
     @Transactional
-    public boolean addNewDepartment( Department department ) 
-    {
-        if ( department.getName().equals("") ) {
-            return false;
-        }
+    public boolean add( String name ) {   
+        // Not Empty
+        if ( name.equals("") ) { return false; }
         
-        departmentRepo.save(
-            new Department( department.getName().trim() )
-        );
-
+        // Check Exist same name in a DB
+        if( departmentRepo.findByName(name) != null ){ return false; }
+        
+        // Save to DB
+        departmentRepo.save( new Department( name.trim() ) );
         return true;
     }
     /**
@@ -56,8 +57,14 @@ public class DepartmentService {
      * @param department
      */
     @Transactional
-    public void deleteById(Department department)
-    {
-        departmentRepo.deleteById( department.getId() );
+    public boolean deleteById( Long id ) {
+        if( departmentRepo.findById(id) != null ){ return false; }
+        departmentRepo.deleteById( id );
+        return true;
     }
+
+    public Department getById(Long id) {
+        return departmentRepo.getById(id);
+    }
+    
 }

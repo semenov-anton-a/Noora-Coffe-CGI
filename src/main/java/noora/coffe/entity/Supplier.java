@@ -1,6 +1,5 @@
 package noora.coffe.entity;
 
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
@@ -17,11 +15,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import noora.coffe.repos.DepartmentRepo;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.transaction.annotation.Transactional;
 
 @Data
 @Entity
@@ -29,19 +24,43 @@ import org.springframework.transaction.annotation.Transactional;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Supplier extends AbstractPersistable<Long>{
+public class Supplier extends AbstractPersistable<Long> {
+
+    /**
+     * Сущность поставщика
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;
+    private String contact;
+    private String email;
+
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Product> products;
     
     /**
-     *  Сущность поставщика
+     * 
+     * @param name
+     * @param contact
+     * @param email
+     * @param products
      */
-     String name;
-     String contact;
-     String email;
+    public Supplier(String name, String contact, String email, List<Product> products) {
+        this.name = name;
+        this.contact = contact;
+        this.email = email;
+    }
+    /**
+     * 
+     * @param email
+     * @return
+     */
+    public boolean validEmail( String email ) {
+        // TODO: Wrte validation of email
+        return true;
+    }
 
-
-    //  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //  @JoinColumn(name = "supplier_id")
-    //  private List<Product> products;
-
-
+   
 }

@@ -3,8 +3,11 @@ package noora.coffe.services;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,9 @@ public class ProductService {
 
     @Autowired
     DepartmentRepo departmentRepo;
+    
+    @Autowired
+    SupplierRepo supplierRepo;
 
     @Autowired
     ProductRepo productRepo;
@@ -57,7 +63,12 @@ public class ProductService {
      * @param departmentID
      */
     @Transactional
-    public void addNewProduct(Product product, Long departmentID) {
+    public void addNewProduct(
+        Product product, 
+        Long departmentID
+        // ,Long supplierID
+        // ,Long makerID
+    ){
         
         System.out.println("==========================");
         Department dep = departmentRepo.getById( departmentID );
@@ -87,19 +98,52 @@ public class ProductService {
      */
     public void deleteById(Long id) { productRepo.deleteById(id); }
 
-
-    public void addEntityDependencies( List data ){
-
-        System.out.println( data.get(1) );
-
-    }
-
-
     /**
      * GET ALL Products
      * @return
      */
     public List<Product> getProducts() { return productRepo.findAll(); }
+    
+
+    
+
+
+    /**
+     * Find All Products where Department is NULL
+     * @param pageable
+     * @return Page<Product>
+     */
+    public Page<Product> getProduct_without_department( Pageable pageable ) {
+        return productRepo.findAllProductByDepartmentId( null, pageable );
+    }
+    public Page<Product> getProduct_without_supplier( Pageable pageable ) {
+        return productRepo.findAllProductBySupplierId( null, pageable );
+    }
+    public Page<Product> getProduct_without_maker( Pageable pageable ) {
+        return productRepo.findAllProductByMakerId( null, pageable );
+    }
+
+
+    public Page<Product> getAllWhereActive(Boolean active, Pageable pageable) {
+        return productRepo.findAllProductByActive(active, pageable );
+    }
+    public Page<Product> getAll(Pageable pageable) {
+        return productRepo.findAll( pageable );
+    }
+
+
+    /**
+     * SAVE 
+     * @param product
+     */
+    public void addProduct(Product product)     { productRepo.save(product); }    
+    public void updateProduct(Product product)  { productRepo.save(product); }
+    public void removeProduct(Product product)  { productRepo.deleteById( product.getId() ); }
+
+    //
+    public Product getProductByID(Long id) { return productRepo.getById(id); }
+    
+    
 
 
     // public List<Product> addEntityDependencies(

@@ -1,0 +1,35 @@
+<th:block th:fragment="products">
+    <div class="col" th:each="prod: ${productList}">
+        <div class="card">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 th:text="${prod.name}">TITLE</h5>
+                    <span th:classappend="(${prod.active})?bg-success:bg-danger"
+                        class="p-2 m-2 border border-light rounded-circle"></span>
+                </div>
+                <p class="card-text" th:text="${prod.description}">DESCRIPTION</p>
+                <div class="row">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Department : <span th:text="${prod.getDepartmentName()}"></span></li>
+                        <li class="list-group-item">Supplier : <span th:text="${prod.getSupplierName()}"></span></li>
+                        <li class="list-group-item">Marker : <span th:text="${prod.getMakerName()}"></span></li>
+                        <li class="list-group-item">Price : <span th:text="${prod.getPrice()}"></span></li>
+                    </ul>
+                </div>
+                <div class="btn-group d-flex" role="group" aria-label="Basic outlined example">
+                    <th:block th:if="${!showBuyButton}">
+                    <a type="button" th:href="|/${productDetailsLink}/${prod.id}|"
+                        class="btn btn-sm btn-outline-primary col-2">Details</a>
+                    </th:block>
+                    <th:block th:if="${showBuyButton}">
+                        <form method="post" th:action="|/addproduct/${prod.id}|" class="form-control border-0">
+                            <button type="submit" th:href="|/${productDetailsLink}/${prod.id}|"
+                            class="btn btn-sm btn-outline-primary col-2">Buy</a>
+                        </form>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

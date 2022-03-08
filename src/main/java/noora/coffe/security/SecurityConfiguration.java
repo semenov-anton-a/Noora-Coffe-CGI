@@ -30,8 +30,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/**").permitAll()
                 // .antMatchers(HttpMethod.GET, "/reservations").permitAll()
                 .anyRequest().authenticated();
+        
+
+        // LOGIN PAGE
         http.formLogin()
-                .permitAll();
+            .loginPage("/login")
+            .permitAll();
     }
 
     // @Autowired

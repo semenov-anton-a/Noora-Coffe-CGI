@@ -52,6 +52,20 @@ public class UserRoles extends AbstractPersistable<Long> {
     private User user;
 
 
+    /**
+     *  ROLES
+     */
+    public enum Roles {
+        
+        ADMIN   ( "ADMIN" ),
+        CLIENT  ( "CLIENT" );
+        
+        public final String label;
+    
+        private Roles(String label) {
+            this.label = label;
+        }
+    }
 
     
 

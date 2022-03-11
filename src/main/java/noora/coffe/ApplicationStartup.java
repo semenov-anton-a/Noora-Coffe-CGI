@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import noora.coffe.entity.*;
 import noora.coffe.repos.*;
 import noora.coffe.services.*;
-import noora.coffe.services.UserRolesService.Roles;
 
 /**  */
 
@@ -42,11 +41,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 	@Autowired
 	SupplierService supplierService;
 
-
-	@Autowired
-	UserRolesService userRolesService;
-
-
 	@Autowired
 	UserRepository userRepository;
 	
@@ -59,17 +53,17 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
 	@Override
 	public void onApplicationEvent(final ApplicationReadyEvent event) {
-
-
-		// UserRoles acc;
 		System.out.println("=====================");
-		System.out.println( Roles.CLIENT );
+		System.out.println( "APP IS RUNNING" );
 		System.out.println("=====================");
-		// this
-		// 	.makeFakeDepartments()
-		// 	.makeFakeSuppliers()
-		// 	.makeFakeMakers()
-		// 	.makeFakeProduct()
+		// System.out.println("=====================");
+		// System.out.println( Roles.CLIENT );
+		// System.out.println("=====================");
+		this
+			.makeFakeDepartments()
+			.makeFakeSuppliers()
+			.makeFakeMakers()
+			.makeFakeProduct();
 		// 	.makeUsers();
 	}
 
